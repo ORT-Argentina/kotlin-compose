@@ -29,6 +29,14 @@
   </p>
 </div>
 
+### Principales contribuyentes
+
+<a href="https://github.com/ORT-Argentina/kotlin-compose/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=ORT-Argentina/kotlin-compose" alt="contrib.rocks image" />
+</a>
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
 
 * [![Android][Android-logo]][Android-url]
 * [![Kotlin][kotlinlang.org]][Kotlin-url]
@@ -48,4 +56,4 @@
 [Kotlin-url]: https://kotlinlang.org/docs/getting-started.html
 [kotlinlang.org]: https://img.shields.io/badge/Kotlin-000000?style=for-the-badge&logo=kotlin
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
