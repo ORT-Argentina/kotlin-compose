@@ -42,7 +42,7 @@
 [stars-shield]: https://img.shields.io/github/stars/ORT-Argentina/kotlin-compose.svg?style=for-the-badge
 [stars-url]: https://github.com/ORT-Argentina/kotlin-compose/stargazers
 [license-shield]: https://img.shields.io/github/license/ORT-Argentina/kotlin-compose.svg?style=for-the-badge
-[license-url]: https://github.com/ORT-Argentina/kotlin-compose/blob/master/LICENSE.txt
+[license-url]: https://github.com/ORT-Argentina/kotlin-compose/blob/main/LICENSE.txt
 [Android-logo]: https://img.shields.io/badge/Android-FFFFFF?style=for-the-badge&logo=android
 [Android-url]: https://developer.android.com/
 [Kotlin-url]: https://kotlinlang.org/docs/getting-started.html
