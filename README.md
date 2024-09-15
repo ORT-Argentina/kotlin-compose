@@ -4,7 +4,7 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![MIT License][license-shield]][license-url]
+[![MIT License][license-shield-v1]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -49,7 +49,7 @@
 [forks-url]: https://github.com/ORT-Argentina/kotlin-compose/network/members
 [stars-shield]: https://img.shields.io/github/stars/ORT-Argentina/kotlin-compose.svg?style=for-the-badge
 [stars-url]: https://github.com/ORT-Argentina/kotlin-compose/stargazers
-[license-shield]: https://img.shields.io/github/license/ORT-Argentina/kotlin-compose.svg?style=for-the-badge
+[license-shield-v1]: https://img.shields.io/github/license/ORT-Argentina/kotlin-compose.svg?style=for-the-badge
 [license-url]: https://github.com/ORT-Argentina/kotlin-compose/blob/main/LICENSE.txt
 [Android-logo]: https://img.shields.io/badge/Android-FFFFFF?style=for-the-badge&logo=android
 [Android-url]: https://developer.android.com/
