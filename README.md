@@ -1,12 +1,10 @@
 <a id="readme-top"></a>
 # Kotlin Compose
 
-<div style="text-align:center">
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![MIT License][license-shield-v1]][license-url]
-</div>
 
 <!-- PROJECT LOGO -->
 <br />
