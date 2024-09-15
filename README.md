@@ -29,7 +29,7 @@
   </p>
 </div>
 
-### Principales contribuyentes
+## Principales contribuyentes
 
 <a href="https://github.com/ORT-Argentina/kotlin-compose/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=ORT-Argentina/kotlin-compose" alt="contrib.rocks image" />
@@ -38,8 +38,14 @@
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 
+## Tecnologias
+
 * [![Android][Android-logo]][Android-url]
 * [![Kotlin][kotlinlang.org]][Kotlin-url]
+
+## Cursos
+[Cursos Oficiales de Android](https://developer.android.com/courses?hl=es-419)
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
