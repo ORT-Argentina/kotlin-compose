@@ -1,13 +1,9 @@
 package ar.edu.ort.bootsshop
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue.Closed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -18,7 +14,6 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,12 +31,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import ar.edu.ort.bootsshop.data.Sizes
+import ar.edu.ort.bootsshop.ui.components.TopBar
 import ar.edu.ort.bootsshop.ui.components.AppDrawer
 import ar.edu.ort.bootsshop.ui.theme.BackgroundColor
 import ar.edu.ort.bootsshop.ui.theme.BootShopTheme
 import ar.edu.ort.bootsshop.ui.theme.Brown40
 import ar.edu.ort.bootsshop.ui.theme.SecondaryButton
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 val sizes = enumValues<Sizes>()
@@ -80,14 +75,7 @@ fun AppBootShop(viewModel: MainActivityViewModel = MainActivityViewModel()) {
                 snackbarHost = { SnackBarApp(snackbarHostState) },
                 containerColor = BackgroundColor,
                 topBar = {
-                    AppBar(
-                        title = { title.let { Text(it) } },
-                        onNavIconPressed = { scope.launch {
-                            drawerState.open()
-                        } },
-                        scope = scope,
-                        snackbarHostState = snackbarHostState
-                    )
+                    TopBar(title, scope, drawerState, snackbarHostState)
                  },
                 modifier = Modifier.fillMaxSize()
             ) { innerPadding ->
@@ -127,43 +115,7 @@ fun SnackBarApp(snackbarHostState: SnackbarHostState) {
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AppBar(
-    modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior? = null,
-    onNavIconPressed: () -> Unit = { },
-    title: @Composable () -> Unit,
-    actions: @Composable RowScope.() -> Unit = {},
-    scope: CoroutineScope,
-    snackbarHostState: SnackbarHostState
-){
-    CenterAlignedTopAppBar(
-        modifier = modifier,
-        actions = {
-            Icon(
-                painter = painterResource(id = R.drawable.trailing_icon),
-                contentDescription = null,
-                modifier = Modifier.size(64.dp).padding(start = 30.dp, end = 16.dp, top = 16.dp).clickable {
-                    scope.launch {
-                        snackbarHostState.showSnackbar("Avatar")
-                    }
-                }
-            )
-          },
-        title = title,
-        scrollBehavior = scrollBehavior,
-        navigationIcon = {
-            AppIcon(
-                contentDescription = stringResource(id = R.string.navigation_drawer_open),
-                modifier = Modifier
-                    .size(64.dp)
-                    .clickable(onClick = onNavIconPressed)
-                    .padding(16.dp)
-            )
-        }
-    )
-}
+
 
 @Composable
 fun AppIcon(
