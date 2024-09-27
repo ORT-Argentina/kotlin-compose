@@ -13,6 +13,7 @@
     <string name="detail_text_field_title_size">Select size</string>
     <string name="detail_text_field_title_count">Count of producy</string>
     <string name="favorite_title_bar">Favourite</string>
+    <string name="profile_title_bar">Profile</string>
     <string name="snack_bar_floating_action">Floating Action Button</string>
     <string name="button_back">Back</string>
     <array name="com_google_android_gms_fonts_certs">

@@ -1,6 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    //Aplicar el Plugin de Serializacion de Kotlin
+    alias(libs.plugins.kotlin.serialization)
+
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -59,13 +64,31 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    //Google Fonts
     implementation(libs.androidx.ui.text.google.fonts)
+
+    // LiveData
     implementation(libs.androidx.runtime.livedata)
+
+    // Compose Coil - Image URL
     implementation(libs.coil.compose)
+
+    // Compose Navigation
     implementation(libs.androidx.navigation.compose)
+
+    // Compose ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+    
+    //Serialization
+    implementation(libs.kotlin.serialization)
+    implementation(libs.kotlinx.serialization.json)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

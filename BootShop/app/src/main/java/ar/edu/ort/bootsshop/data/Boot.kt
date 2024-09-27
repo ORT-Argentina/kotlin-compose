@@ -1,8 +1,10 @@
 package ar.edu.ort.bootsshop.data
 
 import androidx.compose.runtime.Immutable
+import kotlinx.serialization.Serializable
 
 @Immutable
+@Serializable
 data class Boot(
     val id: Int,
     val image: String,

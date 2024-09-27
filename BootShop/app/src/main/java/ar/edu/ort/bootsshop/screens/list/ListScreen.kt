@@ -71,6 +71,7 @@ fun BootItem(boot: Boot, modifier: Modifier = Modifier, navigationActions: MainN
 
     val buttonColor = if( !isSystemInDarkTheme() )  Brown40 else Pink80
 
+
     Card(
         shape = RoundedCornerShape(12.dp),
         border = null,

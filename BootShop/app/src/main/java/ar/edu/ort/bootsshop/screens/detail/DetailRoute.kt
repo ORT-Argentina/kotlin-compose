@@ -14,6 +14,7 @@ fun DetailRoute(
     navController: NavHostController
 ) {
 
+    //Strategy
 
     DetailScreen(
         navController,

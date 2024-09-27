@@ -5,6 +5,6 @@ import androidx.compose.runtime.Immutable
 @Immutable
 data class ItemMenuShop(
     val title: String,
-    val image: String,
+    val image: Int,
     val action: () -> Unit,
 )
