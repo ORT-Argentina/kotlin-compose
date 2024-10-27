@@ -109,9 +109,8 @@ private fun Preview(){
     val drawerState = rememberDrawerState(initialValue = Open)
     val navController = rememberNavController()
     val scope = rememberCoroutineScope()
-    val snackbarHostState = remember { SnackbarHostState() }
     val navigationActions = remember(navController) {
-        MainNavActions(navController, scope, drawerState, snackbarHostState)
+        MainNavActions(navController, scope, drawerState)
     }
 
     AppDrawer(

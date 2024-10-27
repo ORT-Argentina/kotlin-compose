@@ -14,6 +14,11 @@
     <string name="detail_text_field_title_count">Count of producy</string>
     <string name="favorite_title_bar">Favourite</string>
     <string name="profile_title_bar">Profile</string>
+    <string name="bottom_title_product">Product</string>
+    <string name="bottom_title_search">Search</string>
+    <string name="bottom_title_cart">Cart</string>
+    <string name="bottom_title_user">Profile</string>
+    <string name="bottom_title_shop">Shop</string>
     <string name="snack_bar_floating_action">Floating Action Button</string>
     <string name="button_back">Back</string>
     <array name="com_google_android_gms_fonts_certs">

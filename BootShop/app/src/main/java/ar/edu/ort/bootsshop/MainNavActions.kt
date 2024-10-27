@@ -4,23 +4,25 @@ import androidx.compose.material3.DrawerState
 import androidx.compose.material3.SnackbarHostState
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import ar.edu.ort.bootsshop.navigation.LeafScreen
+import ar.edu.ort.bootsshop.navigation.RootScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 object AppDestinations {
     const val LIST_ITEMS_ROUTE = "list"
     const val DETAILS_ROUTE = "detail/{bootId}"
-    const val FAVOURITES = "favourites"
+    const val FAVOURITES = "favourite"
+    const val PROFILE = "profile"
 }
 
 class MainNavActions(
     navController: NavHostController,
     scope: CoroutineScope,
-    drawerState: DrawerState,
-    snackbarHostState: SnackbarHostState
+    drawerState: DrawerState
 ) {
     val navigateToList: () -> Unit = {
-        navController.navigate(AppDestinations.LIST_ITEMS_ROUTE) {
+        navController.navigate(RootScreen.Home.route) {
             scope.launch {
                 drawerState.close()
             }
@@ -32,7 +34,7 @@ class MainNavActions(
         }
     }
     val navigateToDetail: (bootID: Int) -> Unit = { bootID ->
-        navController.navigate(AppDestinations.DETAILS_ROUTE.replace(
+        navController.navigate(LeafScreen.ItemDetail.route.replace(
             oldValue = "{bootId}",
             newValue = bootID.toString()
         )) {
@@ -47,7 +49,7 @@ class MainNavActions(
         }
     }
     val navigateToFavorite: () -> Unit = {
-        navController.navigate(AppDestinations.FAVOURITES) {
+        navController.navigate(LeafScreen.Favorites.route) {
             scope.launch {
                 drawerState.close()
             }
@@ -59,15 +61,27 @@ class MainNavActions(
         }
     }
     val navigateToProfile: () -> Unit = {
-        scope.launch {
-            drawerState.close()
-            snackbarHostState.showSnackbar("Profile")
+        navController.navigate(LeafScreen.Profile.route) {
+            scope.launch {
+                drawerState.close()
+            }
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
         }
     }
     val navigateToSettings: () -> Unit = {
-        scope.launch {
-            drawerState.close()
-            snackbarHostState.showSnackbar("Settings")
+        navController.navigate(LeafScreen.Setting.route) {
+            scope.launch {
+                drawerState.close()
+            }
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
         }
     }
 }

@@ -13,7 +13,6 @@ import ar.edu.ort.bootsshop.MainNavActions
 @Composable
 fun ListRoute(
     listViewModel: ListViewModel,
-    openDrawer: () -> Unit,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     navigationActions: MainNavActions
 ) {
@@ -24,7 +23,6 @@ fun ListRoute(
         listViewModel = listViewModel,
         uiState = uiState,
         onToggleFavorite = { listViewModel.toggleFavourite(it) },
-        openDrawer = openDrawer,
         snackbarHostState = snackbarHostState,
         navigationActions = navigationActions
     )
@@ -35,7 +33,6 @@ fun ListRoute(
     listViewModel: ListViewModel,
     uiState: ListUiState,
     onToggleFavorite: (String) -> Unit,
-    openDrawer: () -> Unit,
     snackbarHostState: SnackbarHostState,
     navigationActions: MainNavActions
 ) {

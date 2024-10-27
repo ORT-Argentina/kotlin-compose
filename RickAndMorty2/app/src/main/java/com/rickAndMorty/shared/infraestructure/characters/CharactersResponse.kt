@@ -3,9 +3,14 @@ package com.rickAndMorty.shared.infraestructure.characters
 import com.google.gson.annotations.SerializedName
 import com.rickAndMorty.shared.model.Character
 
+
 data class CharactersResponse(
+
     @SerializedName("results")
-    val results: List<CharacterDTO>
+    val results: List<CharacterDTO>,
+
+    @SerializedName("info")
+    val paginate: Paginado
 ) {
     fun toModel() = results.map {
         Character(

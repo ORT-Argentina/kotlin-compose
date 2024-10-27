@@ -1,5 +1,7 @@
 package ar.edu.ort.bootsshop
 
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import ar.edu.ort.bootsshop.data.FavouriteRepository
+import ar.edu.ort.bootsshop.navigation.RootScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
@@ -22,7 +25,16 @@ data class UiState (
 class MainActivityViewModel(private var favouriteRepository: FavouriteRepository) : ViewModel() {
     private var _titleBar = MutableLiveData("Shop List")
     private val _drawerShouldBeOpened = MutableStateFlow(false)
+    private var _route = mutableStateOf<RootScreen>(RootScreen.Home)
     val drawerShouldBeOpened = _drawerShouldBeOpened.asStateFlow()
+
+    fun setRoute(route: RootScreen) {
+        _route.value = route
+    }
+
+    fun getRoute(): RootScreen {
+        return _route.value
+    }
 
     fun openDrawer() {
         _drawerShouldBeOpened.value = true

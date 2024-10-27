@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -43,14 +44,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(quote: String,  author: String, modifier: Modifier = Modifier) {
-    Text(
-        text = quote,
-        modifier = modifier
-    )
-    Text(
-        text = author,
-        modifier = modifier
-    )
+    Row() {
+        Text(
+            text = quote,
+            modifier = modifier
+        )
+        Text(
+            text = author,
+            modifier = modifier
+        )
+    }
 }
 
 @Preview(showBackground = true)

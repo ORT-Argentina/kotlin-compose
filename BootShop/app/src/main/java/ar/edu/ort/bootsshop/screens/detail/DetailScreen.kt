@@ -36,7 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.ort.bootsshop.R
 import ar.edu.ort.bootsshop.data.Boot
@@ -47,7 +47,7 @@ import ar.edu.ort.bootsshop.ui.theme.Brown40
 import ar.edu.ort.bootsshop.ui.theme.Pink80
 
 @Composable
-fun DetailScreen(navController: NavHostController, bootItem: Boot){
+fun DetailScreen(navController: NavController, bootItem: Boot){
 
     val buttonColor = if( !isSystemInDarkTheme() )  Brown40 else Pink80
 

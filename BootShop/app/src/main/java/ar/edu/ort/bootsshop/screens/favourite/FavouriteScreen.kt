@@ -35,7 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.ort.bootsshop.MainNavActions
 import ar.edu.ort.bootsshop.R
@@ -47,7 +47,7 @@ import ar.edu.ort.bootsshop.ui.theme.WhiteApp
 
 @Composable
 fun FavouriteScreen(
-    navController: NavHostController,
+    navController: NavController,
     favouriteViewModel: FavouriteViewModel,
     navigationActions: MainNavActions,
     openDrawer: () -> Unit,
@@ -131,7 +131,7 @@ fun GreetingPreview() {
     val drawerState = rememberDrawerState(initialValue = Closed)
     val snackbarHostState = remember { SnackbarHostState() }
     val navigationActions = remember(navController) {
-        MainNavActions(navController, scope, drawerState, snackbarHostState)
+        MainNavActions(navController, scope, drawerState)
     }
     val viewModel: FavouriteViewModel = viewModel(
         factory = FavouriteViewModel.provideFactory()

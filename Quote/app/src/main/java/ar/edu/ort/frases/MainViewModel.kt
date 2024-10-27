@@ -12,7 +12,7 @@ class MainViewModel(
     private val getQuotesUseCase: GetServiceQuotes
 ): ViewModel() {
 
-     var Quote = mutableStateOf<String>("Cargando...")
+     var Quote = mutableStateOf<String>("Cargando....")
      var Author = mutableStateOf<String>("")
 
     fun loadQuotes() {

@@ -142,7 +142,7 @@ fun GreetingPreview() {
     val drawerState = rememberDrawerState(initialValue = Closed)
     val snackbarHostState = remember { SnackbarHostState() }
     val navigationActions = remember(navController) {
-        MainNavActions(navController, scope, drawerState, snackbarHostState)
+        MainNavActions(navController, scope, drawerState)
     }
 
     ListScreen(BootListItems, navigationActions, PaddingValues(16.dp))

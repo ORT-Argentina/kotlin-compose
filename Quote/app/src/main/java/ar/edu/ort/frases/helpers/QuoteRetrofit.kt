@@ -28,7 +28,7 @@ class QuoteRetrofit : IServiceQuotes {
 
     override suspend fun getQuotes(): List<Quote>? {
 
-        val response = api.getQuotes("definir_token")
+        val response = api.getQuotes("LKUvEtqDQEFqVA6S4FmGQA==SfMHb3BgbOalWo0J")
 
         return if (response.isSuccessful) {
             val result = response.body()?.map {
