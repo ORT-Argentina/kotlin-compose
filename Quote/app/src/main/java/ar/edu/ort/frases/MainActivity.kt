@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import ar.edu.ort.frases.helpers.QuoteRetrofit
 import ar.edu.ort.frases.shared.GetServiceQuotes
 import ar.edu.ort.frases.ui.theme.FrasesTheme
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(quote: String,  author: String, modifier: Modifier = Modifier) {
-    Column() {
+    Column(modifier = Modifier.padding(16.dp)) {
         Text(
             text = quote,
             modifier = modifier
