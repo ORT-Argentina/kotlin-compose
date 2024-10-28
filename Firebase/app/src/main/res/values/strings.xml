@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">FirebaseDemoB44</string>
+    <string name="login_label">Login</string>
+    <string name="register_label">Register</string>
+    <string name="empty_login">Enter email and password\n</string>
+</resources>
