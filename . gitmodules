@@ -1,0 +1,10 @@
+[submodule "compose-recyclerview"]
+  active = false
+  url = https://github.com/canopas/compose-recyclerview
+[submodule "compose-samples"]
+  active = true
+  url = https://github.com/android/compose-samples
+[submodule "MisTutorialesYouTube"]
+  url = https://github.com/MKiperszmid/MisTutorialesYouTube
+[submodule "RecyclerViewJCYTT"]
+  url = https://github.com/foxandroid/RecyclerViewJCYTT
