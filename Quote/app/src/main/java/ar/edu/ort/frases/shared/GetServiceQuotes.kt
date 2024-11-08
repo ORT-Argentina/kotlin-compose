@@ -4,11 +4,12 @@ import ar.edu.ort.frases.helpers.QuoteRetrofit
 import ar.edu.ort.frases.model.Quote
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GetServiceQuotes(
+class GetServiceQuotes @Inject constructor(
     private val quoteRetrofit: QuoteRetrofit
-) {
-   suspend fun execute(): List<Quote>? = withContext(Dispatchers.IO){
+){
+   suspend fun invoke(): List<Quote>? = withContext(Dispatchers.IO){
        quoteRetrofit.getQuotes()
    }
 }

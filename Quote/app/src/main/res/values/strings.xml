@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Frases</string>
+    <string name="quotes_api_base_url">https://api.api-ninjas.com/</string>
 </resources>
