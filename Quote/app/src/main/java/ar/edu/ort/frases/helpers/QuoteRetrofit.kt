@@ -3,32 +3,16 @@ package ar.edu.ort.frases.helpers
 import ar.edu.ort.frases.model.Quote
 import ar.edu.ort.frases.shared.IServiceQuotes
 import ar.edu.ort.frases.shared.QuotesApi
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 
-class QuoteRetrofit : IServiceQuotes {
-
-    val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
-    var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
-
-    private val retrofit: Retrofit = Retrofit
-        .Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(client)
-        .baseUrl("https://api.api-ninjas.com/")
-        .build()
-
-    private val api = retrofit.create(QuotesApi::class.java)
+class QuoteRetrofit
+    @Inject
+    constructor(private val service:QuotesApi) : IServiceQuotes {
 
     override suspend fun getQuotes(): List<Quote>? {
 
-        val response = api.getQuotes("LKUvEtqDQEFqVA6S4FmGQA==SfMHb3BgbOalWo0J")
+        val response = service.getQuotes("")
 
         return if (response.isSuccessful) {
             val result = response.body()?.map {
