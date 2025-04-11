@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Hola Mundo</string>
+    <string name="welcome_btn_action_login">Login</string>
+    <string name="welcome_btn_action_register">Register</string>
+    <string name="welcome_title">Discover Your Dream Job here</string>
+    <string name="welcome_subtitle">Explore all the existing job roles based on your interest and study major</string>
+</resources>
