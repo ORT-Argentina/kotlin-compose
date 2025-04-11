@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="welcome_message">Discover Your Dream Job here</string>
+    <string name="welcome_message_subtitle">Explore all the existing job roles based on your interest and study major</string>
+    <string name="welcome_btn_action_login">Login</string>
+    <string name="welcome_btn_action_register">Register</string>
+</resources>

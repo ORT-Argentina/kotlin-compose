@@ -54,6 +54,7 @@ fun AppBootShop(
 ) {
     BootShopTheme {
         val navController = rememberNavController()
+
         val scope = rememberCoroutineScope()
         val snackbarHostState = remember { SnackbarHostState() }
         val title: String by viewModel.titleBar.observeAsState(stringResource(R.string.title_bar_default))
