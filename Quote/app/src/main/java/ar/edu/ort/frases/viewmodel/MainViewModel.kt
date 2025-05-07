@@ -16,16 +16,20 @@ class MainViewModel @Inject constructor(
 
      var Quote = mutableStateOf("Cargando....")
      var Author = mutableStateOf("")
+    var Category = mutableStateOf("")
 
     fun loadQuotes() {
         viewModelScope.launch {
+
             val quote = getQuotesUseCase.invoke()
             if(!quote.isNullOrEmpty() && quote.size > 0) {
                 Quote.value = quote!!.get(0)!!.quote
                 Author.value = quote!!.get(0)!!.author
+                Category.value = quote!!.get(0)!!.category
             }
         }
     }
+
 
     /*companion object {
 
