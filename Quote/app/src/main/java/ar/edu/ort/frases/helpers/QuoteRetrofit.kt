@@ -13,10 +13,7 @@ class QuoteRetrofit
 
     override suspend fun getQuotes(): List<Quote>? {
 
-
         val response = service.getQuotes()
-
-
 
         return if (response.isSuccessful) {
             val result = response.body()?.map {

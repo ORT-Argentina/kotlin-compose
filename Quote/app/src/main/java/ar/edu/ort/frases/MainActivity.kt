@@ -14,9 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ar.edu.ort.frases.core.Config
+import ar.edu.ort.frases.di.NetworkModule.client
+import ar.edu.ort.frases.shared.QuotesApi
 import ar.edu.ort.frases.ui.theme.FrasesTheme
 import ar.edu.ort.frases.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,7 +39,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             FrasesTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
+                    Quote(
                         quote = viewModel.Quote.value,
                         author = viewModel.Author.value,
                         category = viewModel.Category.value,
@@ -47,7 +52,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(quote: String,  author: String, category: String, modifier: Modifier = Modifier) {
+fun Quote(quote: String,  author: String, category: String, modifier: Modifier = Modifier) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
             text = quote,
@@ -68,6 +73,6 @@ fun Greeting(quote: String,  author: String, category: String, modifier: Modifie
 @Composable
 fun GreetingPreview() {
     FrasesTheme {
-        Greeting("Quote...", "Author", "Category")
+        Quote("Quote...", "Author", "Category")
     }
 }

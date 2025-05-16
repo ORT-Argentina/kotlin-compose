@@ -20,7 +20,6 @@ class MainViewModel @Inject constructor(
 
     fun loadQuotes() {
         viewModelScope.launch {
-
             val quote = getQuotesUseCase.invoke()
             if(!quote.isNullOrEmpty() && quote.size > 0) {
                 Quote.value = quote!!.get(0)!!.quote
