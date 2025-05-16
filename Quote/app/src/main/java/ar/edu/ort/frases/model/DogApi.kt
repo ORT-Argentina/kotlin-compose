@@ -2,8 +2,8 @@ package ar.edu.ort.frases.model
 
 import com.google.gson.annotations.SerializedName
 
-class DogApi(
-    @SerializedName("image_link") val image_link: String,
+data class DogApi(
+    @SerializedName("image_link") val imageLink: String,
     @SerializedName("name") val name: String
 ) {
 }
