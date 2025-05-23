@@ -1,0 +1,246 @@
+{
+  "name": "container",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "4wa4O3EQM0uUeZARL7Q9V9",
+    "node": "3608:196",
+    "version": "2220393587443289359",
+    "component-id": "4efbfe958c832e524e18213cb78d9e8b426daa30"
+  },
+  "default": "Container",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "vector",
+        "id": "Shadow Container"
+      },
+      {
+        "type": "group",
+        "id": "Button"
+      },
+      {
+        "type": "group",
+        "id": "Text"
+      },
+      {
+        "type": "text",
+        "id": "Get Started"
+      },
+      {
+        "type": "text",
+        "id": "Fall in Love with Coffee in Blissful Delight!"
+      },
+      {
+        "type": "text",
+        "id": "Welcome to our cozy coffee corner, where every cup is a delightful for you."
+      }
+    ],
+    "modes": {
+      "Container": {
+        "rules": [
+          {
+            "id": "top_level",
+            "tap-handler": "$on Container tapped",
+            "is-structured": false,
+            "children": [
+              "Shadow Container",
+              "Button",
+              "Text"
+            ],
+            "background-color": "$Container background color",
+            "clip-content": false
+          },
+          {
+            "id": "Shadow Container",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "end",
+                "offset": 0.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 375.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 360.0
+              }
+            },
+            "vector-content": "shadow_container.svg"
+          },
+          {
+            "id": "Button",
+            "padding": {
+              "left": 20.0,
+              "top": 16.0,
+              "right": 20.0,
+              "bottom": 16.0
+            },
+            "border-radius": 16.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 24.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 250.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 327.0
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "Get Started"
+            ],
+            "item-spacing": 10.0,
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 22.999999999999996,
+              "saturation": 0.6060606060606061,
+              "value": 0.7764705882352941
+            },
+            "clip-content": false
+          },
+          {
+            "id": "Text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 24.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 24.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "main-axis-align": "start",
+            "children": [
+              "Fall in Love with Coffee in Blissful Delight!",
+              "Welcome to our cozy coffee corner, where every cup is a delightful for you."
+            ],
+            "item-spacing": 8.0,
+            "clip-content": false
+          },
+          {
+            "id": "Get Started",
+            "font-weight": 600.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "Get Started",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Sora"
+          },
+          {
+            "id": "Fall in Love with Coffee in Blissful Delight!",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 327.0
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "font-weight": 600.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "Fall in Love with Coffee in Blissful Delight!",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-size": 32.0,
+            "letter-spacing": 0.16,
+            "line-height": 1.5,
+            "typeface": "Sora"
+          },
+          {
+            "id": "Welcome to our cozy coffee corner, where every cup is a delightful for you.",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 327.0
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 0.6352941176470588
+            },
+            "text-content": "Welcome to our cozy coffee corner, where every cup is a delightful for you.",
+            "overflow": "visible",
+            "max-lines": -1,
+            "letter-spacing": 0.14,
+            "line-height": 1.5,
+            "typeface": "Sora"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "Container background color": {
+      "data-type": "color",
+      "required": false,
+      "description": "Color de Fondo"
+    },
+    "on Container tapped": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": "Funcionalidad"
+    }
+  },
+  "previews": [
+    {
+      "design": "Container",
+      "size": {
+        "width": 375.0,
+        "height": 360.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

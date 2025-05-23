@@ -1,0 +1,114 @@
+{
+  "name": "image_onboarding",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "4wa4O3EQM0uUeZARL7Q9V9",
+    "node": "3617:199",
+    "version": "2220393587443289359",
+    "component-id": "54ec7bc65fbf0320ba40be900d127f6fcfa1336c"
+  },
+  "default": "Image Onboarding",
+  "documentation": "Image",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Image"
+      },
+      {
+        "type": "image",
+        "id": "Image/Coffee/6"
+      }
+    ],
+    "modes": {
+      "Image Onboarding": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "Image"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "Image",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": -0.5
+              },
+              "vertical": {
+                "attachment": "end",
+                "offset": 0.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 468.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 702.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Image/Coffee/6"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Image/Coffee/6",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 47.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 166.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "image_coffee_6.png",
+            "scale": "cover"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "Image Onboarding",
+      "size": {
+        "width": 375.0,
+        "height": 536.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
