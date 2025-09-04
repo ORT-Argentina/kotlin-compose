@@ -10,7 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.screens.LoginScreen
+import com.example.myapplication.ui.screens.RegisterScreen
 import com.example.myapplication.ui.screens.WelcomeScreen
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
@@ -21,11 +25,35 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+
         setContent {
+
+            val navController = rememberNavController()
+
+
+
             MyApplicationTheme {
+
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    WelcomeScreen(modifier = Modifier.padding(innerPadding))
-                    //LoginScreen(modifier = Modifier.padding(innerPadding))
+                    NavHost(
+                        navController = navController,
+                        modifier = Modifier.padding(innerPadding),
+                        startDestination = "welcome",
+                    ){
+                        composable(route = "welcome"){
+                            WelcomeScreen(Modifier, navController)
+                        }
+                        composable(route = "register"){
+                            RegisterScreen()
+                        }
+                        composable(route = "login"){
+                            LoginScreen(Modifier)
+                        }
+                    }
+                    /*WelcomeScreen(modifier = Modifier.padding(innerPadding))
+                    LoginScreen(modifier = Modifier.padding(innerPadding))*/
                 }
             }
         }
