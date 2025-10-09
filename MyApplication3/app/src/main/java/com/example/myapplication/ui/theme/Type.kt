@@ -20,12 +20,12 @@ val provider = GoogleFont.Provider(
     certificates = R.array.com_google_android_gms_fonts_certs
 )
 
-val robotoFont = GoogleFont("Creepster")
+//val robotoFont = GoogleFont("Creepster")
 
-val robotoFamily = FontFamily(
+/*val robotoFamily = FontFamily(
     GoogleFontFont(googleFont = robotoFont, fontProvider = provider, weight = FontWeight.Normal, style = FontStyle.Normal),
     GoogleFontFont(googleFont = robotoFont, fontProvider = provider, weight = FontWeight.Bold, style = FontStyle.Italic),
-)
+)*/
 
 //Local Esta en Recursos
 val poppinsFamily = FontFamily(
@@ -35,21 +35,21 @@ val poppinsFamily = FontFamily(
 
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = robotoFamily,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 20.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = robotoFamily,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 22.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = robotoFamily,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 11.sp,
         lineHeight = 16.sp,
