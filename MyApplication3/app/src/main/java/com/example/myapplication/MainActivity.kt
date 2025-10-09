@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -10,32 +11,44 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.room.Room
+import com.example.myapplication.infraestructure.AppDatabase
 import com.example.myapplication.ui.screens.LoginScreen
 import com.example.myapplication.ui.screens.RegisterScreen
 import com.example.myapplication.ui.screens.WelcomeScreen
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "file"
+        ).build()
+
+        lifecycleScope.launch(Dispatchers.IO){
+            val messages = db.messageDao().getAll()
+            withContext(Dispatchers.Main) {
+                Log.d("DB", "Cantidad de mensajes: ${messages.size}")
+            }
+        }
 
         setContent {
-
             val navController = rememberNavController()
-
-
-
             MyApplicationTheme {
-
-
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
@@ -43,14 +56,15 @@ class MainActivity : ComponentActivity() {
                         startDestination = "welcome",
                     ){
                         composable(route = "welcome"){
-                            WelcomeScreen(Modifier, navController)
+                            WelcomeScreen(Modifier, navController, intent)
                         }
                         composable(route = "register"){
-                            RegisterScreen()
+                            RegisterScreen(Modifier.fillMaxSize(), navController)
                         }
                         composable(route = "login"){
-                            LoginScreen(Modifier)
+                            LoginScreen(Modifier, navController)
                         }
+
                     }
                     /*WelcomeScreen(modifier = Modifier.padding(innerPadding))
                     LoginScreen(modifier = Modifier.padding(innerPadding))*/
