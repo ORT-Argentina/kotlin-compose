@@ -16,6 +16,7 @@ class CharacterImpl : Characters {
 
     private val api = retrofit.create(CharactersApi::class.java)
 
+
     override suspend fun getAll(): List<Character>? {
 
         val response = api.getCharacters()
