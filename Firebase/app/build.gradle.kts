@@ -61,12 +61,16 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+
+    //ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
     implementation("com.google.firebase:firebase-config:21.6.3")
     implementation("com.google.firebase:firebase-auth:22.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("com.google.firebase:firebase-crashlytics:18.6.3")
     implementation("com.google.firebase:firebase-firestore:24.11.0")
     implementation("com.google.firebase:firebase-database:20.3.1")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

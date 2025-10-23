@@ -88,7 +88,6 @@ fun AddNote(viewModel: NotesViewModel) {
         Button(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             onClick = {
-
                 viewModel.addNotes(Note(UUID.randomUUID().toString(), newNoteTitle, newNoteContent, "solo"))
             }) {
             Text(text = "Add Note")
