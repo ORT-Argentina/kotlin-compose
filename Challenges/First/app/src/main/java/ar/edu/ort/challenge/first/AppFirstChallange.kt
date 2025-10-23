@@ -31,12 +31,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import ar.edu.ort.challenge.first.screens.welcome.WelcomeScreen
 import ar.edu.ort.challenge.first.ui.theme.MyApplicationTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+@Preview(showBackground = true)
 fun AppFirstChallange(){
 
     val scope = rememberCoroutineScope()
@@ -45,7 +47,7 @@ fun AppFirstChallange(){
     MyApplicationTheme {
         Scaffold(modifier = Modifier.fillMaxSize(),
             topBar = {
-                TopAppBar(
+                /*TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                         titleContentColor = MaterialTheme.colorScheme.primary,
@@ -61,10 +63,10 @@ fun AppFirstChallange(){
                             )
                         }
                     },
-                )
+                )*/
             },
             bottomBar = {
-                BottomAppBar(
+                /*BottomAppBar(
                     actions = {
                         IconButton(onClick = { /* do something */ }) {
                             Icon(Icons.Filled.Check, contentDescription = "Localized description")
@@ -88,13 +90,13 @@ fun AppFirstChallange(){
                             )
                         }
                     }
-                )
+                )*/
             },
             snackbarHost = {
-                SnackbarHost(hostState = snackbarHostState)
+                /*SnackbarHost(hostState = snackbarHostState)*/
             },
             floatingActionButton = {
-                ExtendedFloatingActionButton(
+                /*ExtendedFloatingActionButton(
                     text = { Text("Show snackbar") },
                     icon = { Icon(Icons.Filled.Add, contentDescription = "") },
                     onClick = {
@@ -117,7 +119,7 @@ fun AppFirstChallange(){
                             }
                         }
                     }
-                )
+                )*/
             }
             ) { innerPadding ->
             WelcomeScreen(Modifier.padding(innerPadding))

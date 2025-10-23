@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class Message(
     @PrimaryKey val uid: Int,
     @ColumnInfo(name = "name") val nombre: String?,
+    @ColumnInfo(name = "completed") val completed: Boolean,
     @ColumnInfo(name = "created_at") val fecha_hora: String?
 )

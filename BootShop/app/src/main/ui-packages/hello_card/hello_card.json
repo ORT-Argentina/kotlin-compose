@@ -1,0 +1,103 @@
+{
+  "name": "hello_card",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "6Ud78BzRCfJKIhbigwTzQE",
+    "node": "4:2",
+    "version": "2220371133909071569",
+    "component-id": "0a75d0aecb03ae4ad3f9d079b5fa728f02d34ca9"
+  },
+  "default": "Hello Card",
+  "documentation": "Es una tarjeta de Render",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "image",
+        "id": "Image"
+      },
+      {
+        "type": "text",
+        "id": "Title"
+      }
+    ],
+    "modes": {
+      "Hello Card": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": 16.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "main-axis-align": "start",
+            "cross-axis-align": "start",
+            "children": [
+              "Image",
+              "Title"
+            ],
+            "item-spacing": 16.0,
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 32.3076923076923,
+              "saturation": 0.051587301587301626,
+              "value": 0.9882352941176471
+            }
+          },
+          {
+            "id": "Image",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 216.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 124.0
+              }
+            },
+            "image-content": "image.jpeg",
+            "scale": "cover"
+          },
+          {
+            "id": "Title",
+            "color": {
+              "alpha": 1.0,
+              "hue": 228.0,
+              "saturation": 0.15625,
+              "value": 0.12549019607843137
+            },
+            "text-content": "Hello World",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 24.0,
+            "line-height": 1.219000021616618,
+            "typeface": "Montserrat"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "Hello Card",
+      "size": {
+        "width": 248.0,
+        "height": 201.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
