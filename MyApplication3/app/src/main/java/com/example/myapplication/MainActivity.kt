@@ -33,19 +33,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            "file"
-        ).build()
-
-        lifecycleScope.launch(Dispatchers.IO){
-            val messages = db.messageDao().getAll()
-            withContext(Dispatchers.Main) {
-                Log.d("DB", "Cantidad de mensajes: ${messages.size}")
-            }
-        }
-
         setContent {
             val navController = rememberNavController()
             MyApplicationTheme {

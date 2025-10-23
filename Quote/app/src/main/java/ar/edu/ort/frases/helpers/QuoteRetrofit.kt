@@ -35,7 +35,7 @@ class QuoteRetrofit
         return if(responseDogs.isSuccessful){
             val result = responseDogs.body()?.map {
                 Dog(
-                    image_link = it.image_link,
+                    image_link = it.imageLink,
                     name = it.name
                 )
             }

@@ -20,15 +20,15 @@ fun RegisterScreen(navController1: Modifier, navController: NavHostController) {
     )
 
     LazyColumn {
+        item(){
+            ChatComponent("Nombre de Grupo", "Item Fijo", "Hora")
+        }
         items(lista) { mensaje ->
             ChatComponent(mensaje.nombre, mensaje.ultMensaje, mensaje.hora)
         }
-        /*item(){
-            ChatComponent("Nombre de Grupo/contacto", "Último mensaje", "Hora")
-        }
         item(){
-            ChatComponent("Nombre de Grupo/contacto", "Último mensaje", "Hora")
-        }*/
+            ChatComponent("Nombre del contacto", "Item Fijo 2", "Hora")
+        }
     }
 }
 
