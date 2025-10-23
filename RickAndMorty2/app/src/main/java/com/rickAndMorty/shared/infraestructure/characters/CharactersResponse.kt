@@ -16,7 +16,7 @@ data class CharactersResponse(
         Character(
             name = it.name,
             status = it.status,
-            imageUrl = it.imageUrl,
+            imageUrl = it.imageUrl
         )
     }
 }
