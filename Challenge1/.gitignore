@@ -1,0 +1,51 @@
+# =========================
+# Android / Kotlin / Gradle
+# =========================
+
+# Build output
+/build/
+/app/build/
+/captures/
+/outputs/
+
+# IntelliJ / Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Gradle
+.gradle/
+gradle-app.setting
+/local.properties
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# APK / Bundle / Test builds
+*.apk
+*.ap_
+*.aab
+*.apks
+
+# Java / Kotlin
+*.class
+*.jar
+*.war
+*.ear
+
+# Crash logs
+hs_err_pid*
+replay_pid*
+# =========================
+# Proguard / mapping
+app/proguard-rules.pro
+app/proguard-rules.pro~
+app/build/outputs/mapping/
+
+# Google / Firebase
+google-services.json

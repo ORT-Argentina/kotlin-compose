@@ -1,0 +1,36 @@
+<resources>
+        <!-- App -->
+        <string name="app_name">Challenge 1</string>
+
+        <!-- Welcome -->
+        <string name="welcome_title">Discover  Your\nDream Job Here</string>
+        <string name="welcome_subtitle">Explore all the existing job roles based on your interest and study major</string>
+        <string name="welcome_login_button">Login</string>
+        <string name="welcome_register_button">Register</string>
+
+        <!-- Login -->
+        <string name="login_title">Login here</string>
+        <string name="login_subtitle">Welcome back youve been missed!</string>
+        <string name="login_email_placeholder">Email</string>
+        <string name="login_password_placeholder">Password</string>
+        <string name="login_forgot_password">Forgot your password?</string>
+        <string name="login_sign_in_button">Sign in</string>
+        <string name="login_create_account">Create new account</string>
+        <string name="login_continue_with">Or continue with</string>
+
+        <!-- Register -->
+        <string name="register_title">Create Account</string>
+        <string name="register_subtitle">Create an account so you can explore all the existing jobs</string>
+        <string name="register_confirm_password">Confirm Password</string>
+        <string name="register_sign_up_button">Sign up</string>
+        <string name="register_have_account">Already have an account</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+</resources>
