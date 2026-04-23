@@ -19,6 +19,7 @@ class CharacterImpl : Characters {
 
     override suspend fun getAll(): List<Character>? {
 
+
         val response = api.getCharacters()
 
         return if (response.isSuccessful) {
@@ -31,5 +32,6 @@ class CharacterImpl : Characters {
         } else {
             null
         }
+        return null
     }
 }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewModelScope
 import com.rickAndMorty.list.feature.presentation.ListViewModel
 import com.rickAndMorty.list.feature.ui.CharactersList
 import com.rickAndMorty.list.model.GetCharactersUseCase

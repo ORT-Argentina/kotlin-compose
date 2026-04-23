@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrofit Class Slides</title>
+    <style>
+        :root {
+            --bg: #f6f1e8;
+            --paper: rgba(255, 250, 242, 0.9);
+            --paper-strong: #fffaf2;
+            --text: #172028;
+            --muted: #5f6971;
+            --primary: #0f7b70;
+            --primary-soft: rgba(15, 123, 112, 0.12);
+            --accent: #ea8c36;
+            --accent-soft: rgba(234, 140, 54, 0.14);
+            --line: rgba(23, 32, 40, 0.1);
+            --shadow: 0 18px 50px rgba(15, 123, 112, 0.1);
+            --radius-xl: 30px;
+            --radius-lg: 22px;
+            --radius-md: 16px;
+            --menu-height: 82px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Avenir Next", "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(234, 140, 54, 0.16), transparent 24%),
+                radial-gradient(circle at top right, rgba(15, 123, 112, 0.16), transparent 28%),
+                linear-gradient(180deg, #faf6ef 0%, #f6f1e8 44%, #ede4d5 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(23, 32, 40, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(23, 32, 40, 0.03) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 78%);
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(18px);
+            background: rgba(250, 245, 237, 0.82);
+            border-bottom: 1px solid rgba(23, 32, 40, 0.08);
+        }
+
+        .topbar-inner {
+            width: min(1280px, calc(100% - 28px));
+            min-height: var(--menu-height);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 20px;
+            align-items: center;
+            padding: 14px 0;
+        }
+
+        .brand {
+            display: grid;
+            gap: 4px;
+        }
+
+        .brand strong {
+            font-size: 1rem;
+            letter-spacing: 0.03em;
+        }
+
+        .brand span {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .menu {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: thin;
+        }
+
+        .menu a {
+            flex: 0 0 auto;
+            text-decoration: none;
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.64);
+            border: 1px solid rgba(23, 32, 40, 0.08);
+            font-size: 0.92rem;
+            font-weight: 700;
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+        }
+
+        .menu a:hover,
+        .menu a:focus-visible {
+            transform: translateY(-1px);
+            border-color: rgba(15, 123, 112, 0.34);
+            background: rgba(255, 255, 255, 0.88);
+            outline: none;
+        }
+
+        .page {
+            width: min(1280px, calc(100% - 28px));
+            margin: 0 auto;
+            padding: 26px 0 70px;
+        }
+
+        .intro {
+            padding: 34px;
+            border-radius: var(--radius-xl);
+            background: var(--paper);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--primary), #29a79a);
+            box-shadow: 0 0 0 6px rgba(15, 123, 112, 0.12);
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            letter-spacing: -0.03em;
+        }
+
+        h1 {
+            margin-top: 14px;
+            font-size: clamp(2.4rem, 5vw, 4.8rem);
+            line-height: 0.96;
+            max-width: 10ch;
+        }
+
+        .intro p,
+        .slide p,
+        .speaker-note {
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .intro p {
+            margin: 16px 0 0;
+            max-width: 62ch;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .chip {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.76);
+            border: 1px solid rgba(23, 32, 40, 0.08);
+            font-size: 0.92rem;
+        }
+
+        .intro-side {
+            display: grid;
+            gap: 14px;
+        }
+
+        .mini-card {
+            padding: 18px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 248, 239, 0.84));
+            border: 1px solid rgba(23, 32, 40, 0.08);
+        }
+
+        .mini-card strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .deck {
+            display: grid;
+            gap: 28px;
+        }
+
+        .slide {
+            scroll-margin-top: calc(var(--menu-height) + 18px);
+            min-height: calc(100vh - var(--menu-height) - 48px);
+            padding: 30px;
+            border-radius: var(--radius-xl);
+            background: var(--paper);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-rows: auto auto 1fr;
+            gap: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::after {
+            content: "";
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(15, 123, 112, 0.14), transparent 70%);
+            pointer-events: none;
+        }
+
+        .slide-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .slide-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--primary), #29a79a);
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 10px 24px rgba(15, 123, 112, 0.22);
+        }
+
+        .slide h2 {
+            font-size: clamp(2rem, 3.8vw, 3.6rem);
+            line-height: 0.98;
+            max-width: 14ch;
+        }
+
+        .slide-subtitle {
+            font-size: 1.04rem;
+            max-width: 72ch;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .card,
+        .note,
+        .code-card,
+        .visual-box {
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(23, 32, 40, 0.08);
+            background: rgba(255, 255, 255, 0.82);
+        }
+
+        .card ul,
+        .note ul {
+            margin: 0;
+            padding-left: 22px;
+            line-height: 1.8;
+        }
+
+        .card li,
+        .note li {
+            margin: 4px 0;
+        }
+
+        .note {
+            background: linear-gradient(135deg, rgba(234, 140, 54, 0.12), rgba(255, 255, 255, 0.88));
+            border-color: rgba(234, 140, 54, 0.22);
+        }
+
+        .note strong,
+        .card strong,
+        .code-card strong,
+        .visual-box strong {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .speaker-note {
+            margin-top: 12px;
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            background: var(--primary-soft);
+            border: 1px solid rgba(15, 123, 112, 0.14);
+            font-size: 0.95rem;
+        }
+
+        .code-card {
+            background: #162228;
+            color: #f5f8fb;
+        }
+
+        pre {
+            margin: 0;
+            overflow: auto;
+            font-size: 0.92rem;
+            line-height: 1.62;
+        }
+
+        code {
+            font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+        }
+
+        .flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .flow span {
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(23, 32, 40, 0.08);
+            font-weight: 700;
+        }
+
+        .flow .arrow {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--accent);
+            font-size: 1.4rem;
+        }
+
+        .timeline {
+            display: grid;
+            gap: 10px;
+        }
+
+        .timeline-row {
+            display: grid;
+            grid-template-columns: 36px 1fr;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .timeline-index {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-soft);
+            color: #ac6523;
+            font-weight: 800;
+        }
+
+        .visual-box {
+            display: grid;
+            gap: 12px;
+            align-content: start;
+        }
+
+        .visual-stack {
+            display: grid;
+            gap: 10px;
+        }
+
+        .visual-pill {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(15, 123, 112, 0.12), rgba(255, 255, 255, 0.94));
+            border: 1px solid rgba(15, 123, 112, 0.16);
+            font-weight: 700;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .summary .card {
+            min-height: 100%;
+        }
+
+        @media (max-width: 980px) {
+            .topbar-inner,
+            .intro,
+            .content-grid,
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .slide {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <strong>Retrofit en Android</strong>
+                <span>Clase con Compose, ViewModel y Coil</span>
+            </div>
+
+            <nav class="menu" aria-label="Navegacion de slides">
+                <a href="#slide-1">1. Intro</a>
+                <a href="#slide-2">2. App</a>
+                <a href="#slide-3">3. Flujo</a>
+                <a href="#slide-4">4. suspend</a>
+                <a href="#slide-5">5. En el proyecto</a>
+                <a href="#slide-6">6. ViewModel</a>
+                <a href="#slide-7">7. Retrofit</a>
+                <a href="#slide-8">8. Builder</a>
+                <a href="#slide-9">9. Mapping</a>
+                <a href="#slide-10">10. Coil</a>
+                <a href="#slide-11">11. Estados</a>
+                <a href="#slide-12">12. Cierre</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="intro">
+            <div>
+                <span class="eyebrow">Deck HTML</span>
+                <h1>Retrofit, coroutines, ViewModel y Coil en una sola historia.</h1>
+                <p>
+                    Esta version esta pensada como presentacion navegable. Cada slide es una seccion con su propio
+                    contenido, y el menu superior te permite saltar rapido entre conceptos durante la clase.
+                </p>
+                <div class="chips">
+                    <span class="chip">Retrofit</span>
+                    <span class="chip">suspend function</span>
+                    <span class="chip">ListViewModel</span>
+                    <span class="chip">Compose</span>
+                    <span class="chip">Coil</span>
+                </div>
+            </div>
+
+            <div class="intro-side">
+                <article class="mini-card">
+                    <strong>Como usarla</strong>
+                    <p>Avanza con el menu superior o hace scroll. Cada bloque esta resumido para exponer sin leer demasiado.</p>
+                </article>
+                <article class="mini-card">
+                    <strong>Idea central</strong>
+                    <p>La UI observa estado. Las demas capas existen para obtener, transformar y presentar datos sin mezclar responsabilidades.</p>
+                </article>
+            </div>
+        </section>
+
+        <div class="deck">
+            <section class="slide" id="slide-1">
+                <div class="slide-head">
+                    <div>
+                        <h2>Retrofit en Android con Compose</h2>
+                        <p class="slide-subtitle">suspend functions, ViewModel, consumo de API y carga de imagenes con Coil.</p>
+                    </div>
+                    <div class="slide-number">01</div>
+                </div>
+                <div class="content-grid">
+                    <article class="card">
+                        <strong>Objetivo</strong>
+                        <ul>
+                            <li>Entender como viaja la informacion desde la API hasta la UI.</li>
+                            <li>Explicar por que usamos coroutines y <code>suspend</code>.</li>
+                            <li>Separar el trabajo de Retrofit del trabajo de Coil.</li>
+                        </ul>
+                        <div class="speaker-note">
+                            Esta app es chica, pero sirve para contar una historia completa de networking en Android moderno.
+                        </div>
+                    </article>
+                    <article class="visual-box">
+                        <strong>Conceptos de la clase</strong>
+                        <div class="visual-stack">
+                            <div class="visual-pill">Compose UI</div>
+                            <div class="visual-pill">ListViewModel</div>
+                            <div class="visual-pill">UseCase</div>
+                            <div class="visual-pill">Retrofit + Gson</div>
+                            <div class="visual-pill">Coil</div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-2">
+                <div class="slide-head">
+                    <div>
+                        <h2>¿Que hace esta app?</h2>
+                        <p class="slide-subtitle">Un ejemplo simple, pero muy util para explicar responsabilidades.</p>
+                    </div>
+                    <div class="slide-number">02</div>
+                </div>
+                <div class="content-grid">
+                    <article class="card">
+                        <ul>
+                            <li>Lista personajes de Rick and Morty.</li>
+                            <li>Consume una API REST.</li>
+                            <li>Muestra nombre, estado e imagen.</li>
+                            <li>Usa Compose para pintar la pantalla.</li>
+                        </ul>
+                        <div class="speaker-note">
+                            La gracia del ejemplo no esta en la complejidad funcional, sino en que cada concepto aparece claro.
+                        </div>
+                    </article>
+                    <article class="note">
+                        <strong>Mensaje para tus alumnos</strong>
+                        <p>
+                            Aunque la app sea simple, no queremos que la UI conozca detalles de red, parsing o carga de imagenes.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-3">
+                <div class="slide-head">
+                    <div>
+                        <h2>Flujo general</h2>
+                        <p class="slide-subtitle">La informacion cruza varias capas antes de llegar a la pantalla.</p>
+                    </div>
+                    <div class="slide-number">03</div>
+                </div>
+                <div class="content-grid">
+                    <article class="visual-box">
+                        <strong>Recorrido principal</strong>
+                        <div class="flow">
+                            <span>MainActivity</span>
+                            <span class="arrow">→</span>
+                            <span>ListViewModel</span>
+                            <span class="arrow">→</span>
+                            <span>GetCharactersUseCase</span>
+                            <span class="arrow">→</span>
+                            <span>CharacterImpl</span>
+                            <span class="arrow">→</span>
+                            <span>CharactersApi</span>
+                            <span class="arrow">→</span>
+                            <span>API</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <strong>Camino paralelo</strong>
+                        <ul>
+                            <li>La UI recibe <code>imageUrl</code>.</li>
+                            <li>Compose delega esa URL a Coil.</li>
+                            <li>Coil descarga y cachea la imagen.</li>
+                        </ul>
+                        <div class="speaker-note">
+                            Acá conviene contrastar: JSON por un lado, imagenes por otro.
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-4">
+                <div class="slide-head">
+                    <div>
+                        <h2>¿Que es una suspend function?</h2>
+                        <p class="slide-subtitle">Una idea clave para entender coroutines y red.</p>
+                    </div>
+                    <div class="slide-number">04</div>
+                </div>
+                <div class="content-grid">
+                    <article class="card">
+                        <ul>
+                            <li>Es una funcion que puede pausarse y reanudarse.</li>
+                            <li>No bloquea el hilo principal.</li>
+                            <li>Se usa mucho en operaciones de red.</li>
+                            <li>Se ejecuta dentro de una coroutine.</li>
+                        </ul>
+                        <div class="speaker-note">
+                            Frase corta para repetir: <code>suspend</code> no es background automatico; es pausa sin bloqueo.
+                        </div>
+                    </article>
+                    <article class="code-card">
+                        <strong>Ejemplo</strong>
+<pre><code>suspend fun getCharacters(): Response&lt;CharactersResponse&gt;</code></pre>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-5">
+                <div class="slide-head">
+                    <div>
+                        <h2>¿Donde aparece suspend en este proyecto?</h2>
+                        <p class="slide-subtitle">No esta en un solo lugar: atraviesa varias capas.</p>
+                    </div>
+                    <div class="slide-number">05</div>
+                </div>
+                <div class="content-grid">
+                    <article class="timeline">
+                        <div class="timeline-row">
+                            <div class="timeline-index">1</div>
+                            <div class="card">En <code>CharactersApi</code>, porque el endpoint puede tardar en responder.</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-index">2</div>
+                            <div class="card">En <code>CharacterImpl.getAll()</code>, porque delega la llamada remota.</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-index">3</div>
+                            <div class="card">En <code>GetCharactersUseCase.execute()</code>, porque coordina el trabajo asincronico.</div>
+                        </div>
+                    </article>
+                    <article class="code-card">
+                        <strong>Uso con IO</strong>
+<pre><code>suspend fun execute(): List&lt;Character&gt;? =
+    withContext(Dispatchers.IO) {
+        characters.getAll()
+    }</code></pre>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-6">
+                <div class="slide-head">
+                    <div>
+                        <h2>¿Que hace el ViewModel?</h2>
+                        <p class="slide-subtitle">Es el intermediario entre pantalla y datos.</p>
+                    </div>
+                    <div class="slide-number">06</div>
+                </div>
+                <div class="content-grid">
+                    <article class="card">
+                        <ul>
+                            <li>Guarda el estado de la pantalla.</li>
+                            <li>Lanza la carga de datos.</li>
+                            <li>Expone datos observables a la UI.</li>
+                            <li>Evita que la UI conozca Retrofit.</li>
+                        </ul>
+                        <div class="speaker-note">
+                            La UI no dice “haceme un GET”. La UI observa un estado y renderiza.
+                        </div>
+                    </article>
+                    <article class="code-card">
+                        <strong>Ejemplo</strong>
+<pre><code>viewModelScope.launch {
+    _characters.value = getCharactersUseCase.execute()
+}</code></pre>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-7">
+                <div class="slide-head">
+                    <div>
+                        <h2>Retrofit</h2>
+                        <p class="slide-subtitle">Una interfaz declarativa para describir endpoints HTTP.</p>
+                    </div>
+                    <div class="slide-number">07</div>
+                </div>
+                <div class="content-grid">
+                    <article class="card">
+                        <ul>
+                            <li>Define APIs con interfaces y anotaciones.</li>
+                            <li>Genera la implementacion automaticamente.</li>
+                            <li>Hace la llamada HTTP.</li>
+                            <li>Se integra con converters como Gson.</li>
+                        </ul>
+                    </article>
+                    <article class="code-card">
+                        <strong>Endpoint</strong>
+<pre><code>interface CharactersApi {
+    @GET("character")
+    suspend fun getCharacters(): Response&lt;CharactersResponse&gt;
+}</code></pre>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-8">
+                <div class="slide-head">
+                    <div>
+                        <h2>Builder de Retrofit</h2>
+                        <p class="slide-subtitle">Configura la base URL y como se convierte el JSON.</p>
+                    </div>
+                    <div class="slide-number">08</div>
+                </div>
+                <div class="content-grid">
+                    <article class="card">
+                        <ul>
+                            <li><code>baseUrl</code> le dice adonde apuntar.</li>
+                            <li><code>addConverterFactory</code> define como parsear la respuesta.</li>
+                            <li><code>create()</code> materializa la interfaz de la API.</li>
+                        </ul>
+                        <div class="speaker-note">
+                            Retrofit no trabaja solo: necesita configuracion explicita.
+                        </div>
+                    </article>
+                    <article class="code-card">
+                        <strong>Configuracion</strong>
+<pre><code>private val retrofit = Retrofit.Builder()
+    .addConverterFactory(GsonConverterFactory.create())
+    .baseUrl("https://rickandmortyapi.com/api/")
+    .build()</code></pre>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-9">
+                <div class="slide-head">
+                    <div>
+                        <h2>DTO, modelo y mapping</h2>
+                        <p class="slide-subtitle">La UI no deberia depender del formato remoto.</p>
+                    </div>
+                    <div class="slide-number">09</div>
+                </div>
+                <div class="content-grid">
+                    <article class="card">
+                        <ul>
+                            <li><code>CharacterDTO</code> representa el JSON.</li>
+                            <li><code>Character</code> representa lo que usa la UI.</li>
+                            <li><code>toModel()</code> transforma una capa en otra.</li>
+                            <li>Esto reduce acoplamiento.</li>
+                        </ul>
+                    </article>
+                    <article class="note">
+                        <strong>Idea pedagogica</strong>
+                        <p>
+                            Mostrar esta separacion ayuda a explicar por que no conviene que la UI conozca nombres exactos del JSON.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-10">
+                <div class="slide-head">
+                    <div>
+                        <h2>¿Que hace Coil?</h2>
+                        <p class="slide-subtitle">Carga imagenes remotas dentro de Compose.</p>
+                    </div>
+                    <div class="slide-number">10</div>
+                </div>
+                <div class="content-grid">
+                    <article class="card">
+                        <ul>
+                            <li>Recibe una URL remota.</li>
+                            <li>Descarga la imagen.</li>
+                            <li>Maneja <code>loading</code> y <code>error</code>.</li>
+                            <li>Usa cache y simplifica la UI.</li>
+                        </ul>
+                        <div class="speaker-note">
+                            Retrofit trae datos estructurados. Coil trae imagenes. Son responsabilidades distintas.
+                        </div>
+                    </article>
+                    <article class="code-card">
+                        <strong>Ejemplo</strong>
+<pre><code>SubcomposeAsyncImage(
+    loading = { LoadingBox() },
+    error = { ImageError() },
+    model = character.imageUrl,
+    contentDescription = null
+)</code></pre>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-11">
+                <div class="slide-head">
+                    <div>
+                        <h2>Estados de UI</h2>
+                        <p class="slide-subtitle">Un punto importante para mejorar el ejemplo y enseñar buenas practicas.</p>
+                    </div>
+                    <div class="slide-number">11</div>
+                </div>
+                <div class="content-grid">
+                    <article class="card">
+                        <ul>
+                            <li><code>Loading</code></li>
+                            <li><code>Success</code></li>
+                            <li><code>Error</code></li>
+                        </ul>
+                        <div class="speaker-note">
+                            Hoy el proyecto mezcla loading y error usando <code>null</code>. Para enseñar mejor, conviene separar estados.
+                        </div>
+                    </article>
+                    <article class="note">
+                        <strong>Pregunta para el aula</strong>
+                        <p>
+                            Si falla la API, ¿deberia seguir viendose el skeleton de carga o un mensaje de error con retry?
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" id="slide-12">
+                <div class="slide-head">
+                    <div>
+                        <h2>Resumen final</h2>
+                        <p class="slide-subtitle">Consumir una API es mas que hacer un GET.</p>
+                    </div>
+                    <div class="slide-number">12</div>
+                </div>
+                <div class="summary">
+                    <article class="card">
+                        <strong>Ideas que deberian quedar claras</strong>
+                        <ul>
+                            <li>La UI observa estado.</li>
+                            <li>El ViewModel coordina la pantalla.</li>
+                            <li><code>suspend</code> permite esperar sin bloquear.</li>
+                            <li>Retrofit consume la API.</li>
+                            <li>Coil resuelve imagenes remotas.</li>
+                        </ul>
+                    </article>
+                    <article class="note">
+                        <strong>Cierre sugerido</strong>
+                        <p>
+                            La clave no es solo consumir una API; la clave es separar responsabilidades para que el codigo sea entendible, mantenible y facil de enseñar.
+                        </p>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.lifecycleScope
 import com.rickAndMorty.list.model.GetCharactersUseCase
 import com.rickAndMorty.shared.model.Character
 import kotlinx.coroutines.launch

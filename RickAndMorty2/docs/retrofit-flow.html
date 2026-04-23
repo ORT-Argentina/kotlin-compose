@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrofit Flow | Rick and Morty</title>
+    <style>
+        :root {
+            --bg: #f4efe6;
+            --panel: rgba(255, 251, 245, 0.84);
+            --panel-strong: #fff8ef;
+            --text: #182126;
+            --muted: #57636d;
+            --line: rgba(24, 33, 38, 0.12);
+            --edge: rgba(24, 33, 38, 0.09);
+            --primary: #167f73;
+            --primary-soft: rgba(22, 127, 115, 0.14);
+            --accent: #f28f3b;
+            --accent-soft: rgba(242, 143, 59, 0.16);
+            --danger: #cc5c3b;
+            --glow: 0 18px 60px rgba(22, 127, 115, 0.12);
+            --radius-xl: 28px;
+            --radius-lg: 22px;
+            --radius-md: 16px;
+            --transition: 220ms ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(242, 143, 59, 0.18), transparent 24%),
+                radial-gradient(circle at top right, rgba(22, 127, 115, 0.16), transparent 26%),
+                linear-gradient(180deg, #faf6ee 0%, #f4efe6 42%, #efe7db 100%);
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(24, 33, 38, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(24, 33, 38, 0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 82%);
+        }
+
+        .page {
+            width: min(1200px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 56px;
+        }
+
+        .hero,
+        .section {
+            background: var(--panel);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--edge);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--glow);
+        }
+
+        .hero {
+            padding: 32px;
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.84rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--primary);
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--primary), #2cb6a7);
+            box-shadow: 0 0 0 6px rgba(22, 127, 115, 0.12);
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 4vw, 4.5rem);
+            line-height: 0.94;
+            margin-top: 14px;
+            max-width: 9ch;
+        }
+
+        .hero p {
+            margin: 16px 0 0;
+            color: var(--muted);
+            font-size: 1.02rem;
+            line-height: 1.65;
+            max-width: 58ch;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .chip {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(24, 33, 38, 0.08);
+            font-size: 0.92rem;
+            color: var(--text);
+        }
+
+        .hero-side {
+            display: grid;
+            gap: 14px;
+        }
+
+        .mini-panel {
+            padding: 18px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 239, 0.74));
+            border: 1px solid rgba(24, 33, 38, 0.08);
+        }
+
+        .mini-panel strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .mini-panel p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+            font-size: 0.95rem;
+        }
+
+        .section {
+            margin-top: 24px;
+            padding: 28px;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: end;
+            margin-bottom: 22px;
+        }
+
+        .section-head p {
+            margin: 10px 0 0;
+            color: var(--muted);
+            max-width: 66ch;
+            line-height: 1.6;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        button {
+            border: 0;
+            padding: 12px 16px;
+            border-radius: 999px;
+            font: inherit;
+            font-weight: 700;
+            color: var(--text);
+            background: #fffdf8;
+            border: 1px solid rgba(24, 33, 38, 0.08);
+            cursor: pointer;
+            transition: transform var(--transition), background var(--transition), border-color var(--transition);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            border-color: rgba(22, 127, 115, 0.36);
+        }
+
+        button.primary {
+            background: linear-gradient(135deg, var(--primary), #2cae9f);
+            color: white;
+            border-color: transparent;
+        }
+
+        .diagram-shell {
+            position: relative;
+            padding: 24px;
+            border-radius: var(--radius-xl);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(252, 246, 236, 0.75)),
+                linear-gradient(135deg, rgba(22, 127, 115, 0.06), transparent);
+            border: 1px solid rgba(24, 33, 38, 0.08);
+            overflow: hidden;
+        }
+
+        .diagram-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(220px, 1fr));
+            grid-template-areas:
+                "ui viewmodel usecase"
+                "coil repository retrofit"
+                ". insight api";
+            gap: 18px;
+            min-height: 620px;
+            z-index: 2;
+        }
+
+        .node {
+            position: relative;
+            padding: 18px 18px 20px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(24, 33, 38, 0.08);
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            box-shadow: 0 12px 28px rgba(24, 33, 38, 0.06);
+        }
+
+        .node::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(180deg, rgba(22, 127, 115, 0.08), transparent 55%);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+
+        .node:hover {
+            transform: translateY(-2px);
+        }
+
+        .node.is-active {
+            border-color: rgba(22, 127, 115, 0.44);
+            box-shadow: 0 22px 44px rgba(22, 127, 115, 0.14);
+            transform: translateY(-4px);
+        }
+
+        .node.is-active::before {
+            opacity: 1;
+        }
+
+        .node small {
+            display: block;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .node h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .node p {
+            margin: 0;
+            line-height: 1.55;
+            color: var(--muted);
+        }
+
+        .node ul {
+            margin: 14px 0 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .node[data-node="ui"] { grid-area: ui; }
+        .node[data-node="viewmodel"] { grid-area: viewmodel; }
+        .node[data-node="usecase"] { grid-area: usecase; }
+        .node[data-node="repository"] { grid-area: repository; }
+        .node[data-node="retrofit"] { grid-area: retrofit; }
+        .node[data-node="api"] { grid-area: api; }
+        .node[data-node="coil"] { grid-area: coil; }
+
+        .insight {
+            grid-area: insight;
+            padding: 20px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(242, 143, 59, 0.14), rgba(255, 255, 255, 0.78));
+            border: 1px solid rgba(242, 143, 59, 0.22);
+            align-self: center;
+        }
+
+        .insight strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .insight p {
+            margin: 0;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        #connections {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .connection {
+            fill: none;
+            stroke: rgba(24, 33, 38, 0.14);
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke var(--transition), opacity var(--transition), filter var(--transition);
+        }
+
+        .connection-glow {
+            fill: none;
+            stroke: transparent;
+            stroke-width: 14;
+            opacity: 0;
+            transition: opacity var(--transition), stroke var(--transition);
+        }
+
+        .connection.active {
+            stroke: var(--primary);
+            filter: drop-shadow(0 0 10px rgba(22, 127, 115, 0.18));
+        }
+
+        .connection-glow.active {
+            stroke: rgba(22, 127, 115, 0.2);
+            opacity: 1;
+        }
+
+        .flow-dot {
+            fill: var(--accent);
+            opacity: 0;
+        }
+
+        .flow-dot.active {
+            opacity: 1;
+            animation: travel 2.6s linear infinite;
+        }
+
+        @keyframes travel {
+            0% {
+                offset-distance: 0%;
+                transform: scale(0.7);
+            }
+            18% {
+                transform: scale(1);
+            }
+            100% {
+                offset-distance: 100%;
+                transform: scale(0.7);
+            }
+        }
+
+        .stepper {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 20px;
+            margin-top: 22px;
+        }
+
+        .steps {
+            display: grid;
+            gap: 12px;
+        }
+
+        .step-card {
+            padding: 16px 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(24, 33, 38, 0.08);
+            background: rgba(255, 255, 255, 0.86);
+            cursor: pointer;
+            transition: transform var(--transition), border-color var(--transition), background var(--transition);
+        }
+
+        .step-card:hover {
+            transform: translateX(3px);
+        }
+
+        .step-card.is-active {
+            border-color: rgba(22, 127, 115, 0.32);
+            background: linear-gradient(135deg, rgba(22, 127, 115, 0.12), rgba(255, 255, 255, 0.92));
+        }
+
+        .step-card strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .step-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .detail {
+            min-height: 100%;
+            padding: 22px;
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 248, 239, 0.82));
+            border: 1px solid rgba(24, 33, 38, 0.08);
+            display: grid;
+            gap: 16px;
+        }
+
+        .detail-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .detail-head .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: var(--primary-soft);
+            color: var(--primary);
+            font-size: 0.86rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .detail-head .badge.coil {
+            background: var(--accent-soft);
+            color: #b76a20;
+        }
+
+        .detail p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        pre {
+            margin: 0;
+            padding: 16px;
+            overflow: auto;
+            border-radius: 18px;
+            background: #162229;
+            color: #f4f8fa;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .legend-card {
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(24, 33, 38, 0.08);
+        }
+
+        .legend-card strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .legend-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .footer-note {
+            margin-top: 16px;
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .stepper {
+                grid-template-columns: 1fr;
+            }
+
+            .diagram-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "ui"
+                    "viewmodel"
+                    "usecase"
+                    "repository"
+                    "retrofit"
+                    "api"
+                    "coil"
+                    "insight";
+                min-height: auto;
+            }
+
+            #connections {
+                display: none;
+            }
+
+            .legend {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div>
+                <span class="eyebrow">Clase visual</span>
+                <h1>De Compose a la API y de la API a la pantalla.</h1>
+                <p>
+                    Esta pagina muestra el recorrido completo de tu ejemplo: la UI delega al ViewModel,
+                    el ViewModel dispara una coroutine, el caso de uso coordina la llamada, Retrofit resuelve
+                    HTTP + JSON y Coil se ocupa de las imagenes remotas.
+                </p>
+                <div class="chips">
+                    <span class="chip">suspend function</span>
+                    <span class="chip">ListViewModel</span>
+                    <span class="chip">Retrofit</span>
+                    <span class="chip">Coil</span>
+                    <span class="chip">UI state</span>
+                </div>
+            </div>
+
+            <div class="hero-side">
+                <article class="mini-panel">
+                    <strong>Idea para abrir la clase</strong>
+                    <p>
+                        "La UI no conoce HTTP. Solo conoce estado. Todo lo demas ocurre en capas intermedias".
+                    </p>
+                </article>
+                <article class="mini-panel">
+                    <strong>Mensaje clave sobre suspend</strong>
+                    <p>
+                        <code>suspend</code> no significa "corre solo en background"; significa "puede pausar la coroutine sin bloquear el hilo principal".
+                    </p>
+                </article>
+                <article class="mini-panel">
+                    <strong>Mensaje clave sobre Coil</strong>
+                    <p>
+                        Retrofit trae datos JSON. Coil resuelve otro problema: descargar, cachear y pintar imagenes.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <div>
+                    <h2>Mapa de capas</h2>
+                    <p>
+                        El flujo principal va de izquierda a derecha hasta la API. El camino de Coil es distinto:
+                        nace en la UI cuando ya existe una <code>imageUrl</code>.
+                    </p>
+                </div>
+                <div class="controls">
+                    <button id="prevStep">Anterior</button>
+                    <button id="togglePlay" class="primary">Pausar autoplay</button>
+                    <button id="nextStep">Siguiente</button>
+                </div>
+            </div>
+
+            <div class="diagram-shell" id="diagramShell">
+                <svg id="connections" aria-hidden="true"></svg>
+
+                <div class="diagram-grid">
+                    <article class="node" data-node="ui">
+                        <small>UI</small>
+                        <h3>Compose Screen</h3>
+                        <p>
+                            <code>CharactersList</code> observa estado y renderiza loading, lista o error.
+                        </p>
+                        <ul>
+                            <li>No hace HTTP.</li>
+                            <li>No parsea JSON.</li>
+                            <li>Solo dibuja estado.</li>
+                        </ul>
+                    </article>
+
+                    <article class="node" data-node="viewmodel">
+                        <small>Presentation</small>
+                        <h3>ListViewModel</h3>
+                        <p>
+                            Dispara la carga con <code>viewModelScope.launch</code> y expone el estado de la pantalla.
+                        </p>
+                    </article>
+
+                    <article class="node" data-node="usecase">
+                        <small>Domain</small>
+                        <h3>GetCharactersUseCase</h3>
+                        <p>
+                            Encapsula la accion "obtener personajes" y deja una puerta clara para reglas de negocio.
+                        </p>
+                    </article>
+
+                    <article class="node" data-node="repository">
+                        <small>Data</small>
+                        <h3>CharacterImpl</h3>
+                        <p>
+                            Crea Retrofit, ejecuta la llamada y transforma la respuesta hacia el modelo que necesita la UI.
+                        </p>
+                    </article>
+
+                    <article class="node" data-node="retrofit">
+                        <small>Infra</small>
+                        <h3>Retrofit + API</h3>
+                        <p>
+                            <code>CharactersApi</code> define el endpoint con anotaciones. Retrofit genera la implementacion real.
+                        </p>
+                    </article>
+
+                    <article class="node" data-node="api">
+                        <small>Remoto</small>
+                        <h3>Rick and Morty API</h3>
+                        <p>
+                            Devuelve JSON. Gson lo convierte en <code>CharactersResponse</code> y despues se hace el mapping a dominio.
+                        </p>
+                    </article>
+
+                    <article class="node" data-node="coil">
+                        <small>Media</small>
+                        <h3>Coil</h3>
+                        <p>
+                            Toma la <code>imageUrl</code>, descarga la imagen y maneja <code>loading</code> y <code>error</code>.
+                        </p>
+                    </article>
+
+                    <aside class="insight">
+                        <strong>Pregunta para el aula</strong>
+                        <p>
+                            Si la API falla, que deberia cambiar en la UI: seguir mostrando loading o pasar a un estado de error?
+                        </p>
+                    </aside>
+                </div>
+            </div>
+
+            <div class="legend">
+                <article class="legend-card">
+                    <strong>Flujo de datos</strong>
+                    <p>UI -> ViewModel -> UseCase -> Repository -> Retrofit -> API</p>
+                </article>
+                <article class="legend-card">
+                    <strong>Flujo de imagenes</strong>
+                    <p>UI -> Coil -> recurso remoto de imagen</p>
+                </article>
+                <article class="legend-card">
+                    <strong>Objetivo didactico</strong>
+                    <p>Separar responsabilidades para que cada capa tenga un motivo claro para existir.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <div>
+                    <h2>Recorrido paso a paso</h2>
+                    <p>
+                        Cada paso activa nodos y conexiones. Te sirve para narrar la comunicacion entre capas
+                        y para remarcar donde aparece cada concepto.
+                    </p>
+                </div>
+            </div>
+
+            <div class="stepper">
+                <div class="steps" id="stepsList"></div>
+                <article class="detail">
+                    <div class="detail-head">
+                        <div>
+                            <h3 id="detailTitle">Paso</h3>
+                            <p id="detailText"></p>
+                        </div>
+                        <span class="badge" id="detailBadge">Paso</span>
+                    </div>
+                    <pre><code id="detailCode"></code></pre>
+                </article>
+            </div>
+
+            <p class="footer-note">
+                Sugerencia para cerrar la demo: mostrar que la llamada HTTP y la carga de imagenes son responsabilidades separadas.
+                Retrofit resuelve JSON y endpoints. Coil resuelve assets remotos para la UI.
+            </p>
+        </section>
+    </main>
+
+    <script>
+        const connectionsData = [
+            { id: "ui-viewmodel", from: "ui", to: "viewmodel" },
+            { id: "viewmodel-usecase", from: "viewmodel", to: "usecase" },
+            { id: "usecase-repository", from: "usecase", to: "repository" },
+            { id: "repository-retrofit", from: "repository", to: "retrofit" },
+            { id: "retrofit-api", from: "retrofit", to: "api" },
+            { id: "ui-coil", from: "ui", to: "coil", accent: true }
+        ];
+
+        const steps = [
+            {
+                title: "1. La pantalla observa estado",
+                short: "La UI no hace networking",
+                tag: "UI",
+                detail:
+                    "CharactersList toma el estado expuesto por el presenter o ViewModel. Si la lista es null hoy se ve loading; si hay datos, renderiza cards.",
+                nodes: ["ui"],
+                lines: [],
+                code:
+`@Composable
+fun CharactersList(presenter: ListPresenter) {
+    val characters = presenter.characters.value
+
+    if (characters == null) {
+        repeat(3) { item { LoadingCard() } }
+    } else {
+        items(characters) { CharacterCard(it) }
+    }
+}`,
+                badgeClass: ""
+            },
+            {
+                title: "2. El ViewModel dispara la coroutine",
+                short: "viewModelScope.launch",
+                tag: "ViewModel",
+                detail:
+                    "ListViewModel inicia la carga y actualiza el estado. Este es un buen lugar para explicar por que el ViewModel media entre UI y datos.",
+                nodes: ["ui", "viewmodel"],
+                lines: ["ui-viewmodel"],
+                code:
+`class ListViewModel(
+    private val getCharactersUseCase: GetCharactersUseCase,
+) : ViewModel() {
+    fun setup() {
+        viewModelScope.launch {
+            _characters.value = getCharactersUseCase.execute()
+        }
+    }
+}`,
+                badgeClass: ""
+            },
+            {
+                title: "3. suspend function y cambio de dispatcher",
+                short: "El caso de uso coordina",
+                tag: "suspend",
+                detail:
+                    "La palabra clave suspend permite pausar la coroutine sin bloquear la UI. El caso de uso cambia al dispatcher IO para la parte de red.",
+                nodes: ["viewmodel", "usecase"],
+                lines: ["viewmodel-usecase"],
+                code:
+`class GetCharactersUseCase(
+    private val characters: Characters,
+) {
+    suspend fun execute(): List<Character>? =
+        withContext(Dispatchers.IO) {
+            characters.getAll()
+        }
+}`,
+                badgeClass: ""
+            },
+            {
+                title: "4. El repositorio conversa con Retrofit",
+                short: "Data + mapping",
+                tag: "Repository",
+                detail:
+                    "CharacterImpl crea Retrofit, ejecuta la llamada y traduce DTOs a modelos de dominio. Es el punto donde se suele manejar errores y mapping.",
+                nodes: ["usecase", "repository", "retrofit"],
+                lines: ["usecase-repository", "repository-retrofit"],
+                code:
+`private val retrofit = Retrofit.Builder()
+    .addConverterFactory(GsonConverterFactory.create())
+    .baseUrl("https://rickandmortyapi.com/api/")
+    .build()
+
+private val api = retrofit.create(CharactersApi::class.java)`,
+                badgeClass: ""
+            },
+            {
+                title: "5. Retrofit resuelve endpoint + JSON",
+                short: "Interfaz declarativa",
+                tag: "Retrofit",
+                detail:
+                    "En lugar de escribir requests manuales, describis la API con anotaciones. Retrofit genera la implementacion y Gson transforma el JSON en objetos Kotlin.",
+                nodes: ["retrofit", "api"],
+                lines: ["retrofit-api"],
+                code:
+`interface CharactersApi {
+    @GET("character")
+    suspend fun getCharacters(): Response<CharactersResponse>
+}`,
+                badgeClass: ""
+            },
+            {
+                title: "6. La UI delega imagenes a Coil",
+                short: "JSON y bitmap son problemas distintos",
+                tag: "Coil",
+                detail:
+                    "Cuando el modelo ya tiene imageUrl, Compose no descarga la imagen por si mismo. SubcomposeAsyncImage delega esa responsabilidad a Coil.",
+                nodes: ["ui", "coil"],
+                lines: ["ui-coil"],
+                code:
+`SubcomposeAsyncImage(
+    loading = { LoadingBox() },
+    error = { ImageError() },
+    model = character.imageUrl,
+    contentDescription = null
+)`,
+                badgeClass: "coil"
+            }
+        ];
+
+        const shell = document.getElementById("diagramShell");
+        const svg = document.getElementById("connections");
+        const stepsList = document.getElementById("stepsList");
+        const detailTitle = document.getElementById("detailTitle");
+        const detailText = document.getElementById("detailText");
+        const detailCode = document.getElementById("detailCode");
+        const detailBadge = document.getElementById("detailBadge");
+        const prevStep = document.getElementById("prevStep");
+        const nextStep = document.getElementById("nextStep");
+        const togglePlay = document.getElementById("togglePlay");
+
+        let currentStep = 0;
+        let autoplay = true;
+        let timer = null;
+
+        function pointFor(nodeId) {
+            const node = shell.querySelector(`[data-node="${nodeId}"]`);
+            const shellRect = shell.getBoundingClientRect();
+            const rect = node.getBoundingClientRect();
+            return {
+                x: rect.left - shellRect.left + rect.width / 2,
+                y: rect.top - shellRect.top + rect.height / 2
+            };
+        }
+
+        function buildPath(start, end) {
+            const dx = Math.abs(end.x - start.x);
+            const dy = Math.abs(end.y - start.y);
+            const bend = Math.max(40, Math.min(120, (dx + dy) * 0.25));
+            const midX = start.x + (end.x > start.x ? bend : -bend);
+            const midY = start.y + (end.y > start.y ? bend : -bend);
+            return `M ${start.x} ${start.y} C ${midX} ${start.y}, ${end.x} ${midY}, ${end.x} ${end.y}`;
+        }
+
+        function drawConnections() {
+            if (window.innerWidth <= 980) {
+                svg.innerHTML = "";
+                return;
+            }
+
+            const shellRect = shell.getBoundingClientRect();
+            svg.setAttribute("viewBox", `0 0 ${shellRect.width} ${shellRect.height}`);
+            svg.innerHTML = "";
+
+            connectionsData.forEach((connection) => {
+                const start = pointFor(connection.from);
+                const end = pointFor(connection.to);
+                const d = buildPath(start, end);
+
+                const glow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                glow.setAttribute("d", d);
+                glow.setAttribute("class", "connection-glow");
+                glow.dataset.connection = connection.id;
+
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("d", d);
+                path.setAttribute("class", "connection");
+                path.dataset.connection = connection.id;
+                if (connection.accent) {
+                    path.style.strokeDasharray = "10 14";
+                }
+
+                const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                dot.setAttribute("r", connection.accent ? "8" : "7");
+                dot.setAttribute("class", "flow-dot");
+                dot.dataset.connection = connection.id;
+                dot.style.offsetPath = `path("${d}")`;
+                dot.style.webkitOffsetPath = `path("${d}")`;
+
+                svg.append(glow, path, dot);
+            });
+        }
+
+        function renderStepCards() {
+            stepsList.innerHTML = "";
+            steps.forEach((step, index) => {
+                const card = document.createElement("button");
+                card.type = "button";
+                card.className = "step-card";
+                card.innerHTML = `<strong>${step.title}</strong><p>${step.short}</p>`;
+                card.addEventListener("click", () => {
+                    currentStep = index;
+                    autoplay = false;
+                    syncAutoplayLabel();
+                    render();
+                });
+                stepsList.appendChild(card);
+            });
+        }
+
+        function render() {
+            const step = steps[currentStep];
+
+            shell.querySelectorAll(".node").forEach((node) => {
+                node.classList.toggle("is-active", step.nodes.includes(node.dataset.node));
+            });
+
+            svg.querySelectorAll("[data-connection]").forEach((element) => {
+                const active = step.lines.includes(element.dataset.connection);
+                element.classList.toggle("active", active);
+            });
+
+            [...stepsList.children].forEach((card, index) => {
+                card.classList.toggle("is-active", index === currentStep);
+            });
+
+            detailTitle.textContent = step.title;
+            detailText.textContent = step.detail;
+            detailCode.textContent = step.code;
+            detailBadge.textContent = step.tag;
+            detailBadge.className = `badge ${step.badgeClass}`.trim();
+        }
+
+        function syncAutoplayLabel() {
+            togglePlay.textContent = autoplay ? "Pausar autoplay" : "Reanudar autoplay";
+        }
+
+        function startAutoplay() {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                if (!autoplay) return;
+                currentStep = (currentStep + 1) % steps.length;
+                render();
+            }, 3600);
+        }
+
+        prevStep.addEventListener("click", () => {
+            autoplay = false;
+            syncAutoplayLabel();
+            currentStep = (currentStep - 1 + steps.length) % steps.length;
+            render();
+        });
+
+        nextStep.addEventListener("click", () => {
+            autoplay = false;
+            syncAutoplayLabel();
+            currentStep = (currentStep + 1) % steps.length;
+            render();
+        });
+
+        togglePlay.addEventListener("click", () => {
+            autoplay = !autoplay;
+            syncAutoplayLabel();
+        });
+
+        window.addEventListener("resize", () => {
+            drawConnections();
+            render();
+        });
+
+        renderStepCards();
+        drawConnections();
+        render();
+        syncAutoplayLabel();
+        startAutoplay();
+    </script>
+</body>
+</html>
