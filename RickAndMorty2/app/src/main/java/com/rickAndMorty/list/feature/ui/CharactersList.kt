@@ -96,12 +96,6 @@ private fun CharacterCard(character: Character) = Card(
     }
 }
 
-@Composable
-private fun LoadingBox() = Box(Modifier.size(120.dp).background(MaterialTheme.colorScheme.primary))
-
-@Composable
-private fun ImageError() = Box(Modifier.size(120.dp).background(MaterialTheme.colorScheme.error))
-
 @Preview(showBackground = true)
 @Composable
 fun LoadingCharactersPreview() = CharactersList(ListPresenterPreview())
@@ -124,3 +118,11 @@ fun CharactersPreview() = CharactersList(
         )
     )
 )
+
+@Preview(showBackground = true)
+@Composable
+private fun LoadingBox() = Box(Modifier.size(120.dp).background(MaterialTheme.colorScheme.primary))
+
+@Preview(showBackground = true)
+@Composable
+private fun ImageError() = Box(Modifier.size(120.dp).background(MaterialTheme.colorScheme.error))
