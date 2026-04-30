@@ -29,6 +29,7 @@ android {
             )
         }
     }
+    //Hilt Necesita compatibilidad con Java 1.8
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
