@@ -202,15 +202,11 @@ private fun invokeViewModelMethods(
     viewModel: UserAuthenticationViewModel
 ) = with(viewModel) {
     if (email.value.isNotEmpty() && password.value.isNotEmpty()) {
-      /*  if (isLoginScreen) {
+        if (isLoginScreen) {
             login()
         } else {
-
-        }*/
-
-       // register()
-
-        login()
+            register()
+        }
     } else {
         showToast(context, context.getString(R.string.empty_login))
     }

@@ -27,8 +27,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     //FeatureScreen()
-                    //LoginScreen()
-                    NotesScreen()
+                    LoginScreen()
+                    //NotesScreen()
                     //NotesScreenRealtime()
                     //ChatScreenRealtimeUI()
                 }
