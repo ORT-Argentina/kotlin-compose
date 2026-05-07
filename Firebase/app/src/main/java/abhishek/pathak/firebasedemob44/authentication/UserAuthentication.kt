@@ -26,6 +26,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -53,14 +54,14 @@ fun LoginScreenPrev() {
 }
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onLoginSuccess: () -> Unit = {}) {
     val viewModel: UserAuthenticationViewModel = viewModel()
     val context = LocalContext.current
     var showPassword: Boolean by remember {
         mutableStateOf(false)
     }
     var isLoginScreen: Boolean by remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
 
     val loginStatus = viewModel.loginStatus.observeAsState()
@@ -68,16 +69,25 @@ fun LoginScreen() {
     val verifyEmailStatus = viewModel.verifyEmailStatus.observeAsState()
 
 
-    registerStatus.value?.let {
-        showToast(context, it)
+    LaunchedEffect(registerStatus.value) {
+        registerStatus.value?.let {
+            showToast(context, it)
+        }
     }
 
-    loginStatus.value?.let {
-        showToast(context, it)
+    LaunchedEffect(loginStatus.value) {
+        loginStatus.value?.let {
+            showToast(context, it)
+            if (it == "Success") {
+                onLoginSuccess()
+            }
+        }
     }
 
-    loginStatus.value?.let {
-        showToast(context, it)
+    LaunchedEffect(verifyEmailStatus.value) {
+        verifyEmailStatus.value?.let {
+            showToast(context, it)
+        }
     }
 
     Box(
