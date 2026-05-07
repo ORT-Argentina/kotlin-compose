@@ -15,7 +15,7 @@ class ListViewModel(
     private val _characters = mutableStateOf<List<Character>?>(null)
     override val characters: State<List<Character>?> = _characters
 
-    fun setup() {
+    fun inicializar() {
         viewModelScope.launch {
             _characters.value = getCharactersUseCase.execute()
         }
