@@ -1,10 +1,27 @@
 [submodule "compose-recyclerview"]
+  path = compose-recyclerview
   active = false
   url = https://github.com/canopas/compose-recyclerview
 [submodule "compose-samples"]
+  path = compose-samples
   active = true
   url = https://github.com/android/compose-samples
 [submodule "MisTutorialesYouTube"]
-  url = https://github.com/MKiperszmid/MisTutorialesYouTube
+  active = true
+  path = MisTutorialesYouTube
+  url = https://github.com/MKiperszmid/MisTutorialesYouTube.git
 [submodule "RecyclerViewJCYTT"]
+  path = RecyclerViewJCYTT
   url = https://github.com/foxandroid/RecyclerViewJCYTT
+[submodule "RoomJetpackCompose"]
+  url = https://github.com/AlexMamo/RoomJetpackCompose.git
+  path = RoomJetpackCompose
+[submodule "make-it-so-android"]
+  url =https://github.com/FirebaseExtended/make-it-so-android.git
+  path = make-it-so-android
+[submodule "nowinandroid"]
+  path = nowinandroid
+  url = https://github.com/android/nowinandroid.git
+[submodule "snippets"]
+  path = snippets
+  url = https://github.com/android/snippets
