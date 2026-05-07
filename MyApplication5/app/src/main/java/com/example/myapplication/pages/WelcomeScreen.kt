@@ -38,8 +38,8 @@ fun WelcomeScreen(){
         )
         Spacer(modifier = Modifier.height(50.dp))
         Row(modifier = Modifier.padding(horizontal = 50.dp)) {
-            ButtonAction()
-            ButtonAction()
+            ButtonAction("test")
+            ButtonAction("hola")
         }
 
     }
