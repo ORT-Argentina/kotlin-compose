@@ -2,5 +2,13 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../MisTutorialesYouTube" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../RecyclerViewJCYTT" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../RoomJetpackCompose" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../compose-recyclerview" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../compose-samples" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../make-it-so-android" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../nowinandroid" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../snippets" vcs="Git" />
   </component>
 </project>
