@@ -109,7 +109,7 @@ fun RegisterScreen(
             horizontalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            SocialIcon(R.drawable.ic_google)
+            SocialIcon(R.drawable.ic_google, )
             SocialIcon(R.drawable.ic_facebook)
             SocialIcon(R.drawable.ic_apple)
         }

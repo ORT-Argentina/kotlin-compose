@@ -10,9 +10,6 @@
   active = true
   path = MisTutorialesYouTube
   url = https://github.com/MKiperszmid/MisTutorialesYouTube.git
-[submodule "RecyclerViewJCYTT"]
-  path = RecyclerViewJCYTT
-  url = https://github.com/foxandroid/RecyclerViewJCYTT
 [submodule "RoomJetpackCompose"]
   url = https://github.com/AlexMamo/RoomJetpackCompose.git
   path = RoomJetpackCompose

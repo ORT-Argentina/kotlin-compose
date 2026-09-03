@@ -20,6 +20,7 @@ import com.eunoia.challenge1.ui.screens.WelcomeScreen
 import com.eunoia.challenge1.ui.theme.Challenge1Theme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -65,4 +66,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }
