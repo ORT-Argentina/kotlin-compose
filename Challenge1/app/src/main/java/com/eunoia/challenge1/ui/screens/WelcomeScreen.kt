@@ -3,6 +3,7 @@ package com.eunoia.challenge1.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eunoia.challenge1.R
 import com.eunoia.challenge1.ui.components.PrimaryButton
+import com.eunoia.challenge1.ui.theme.Challenge1Theme
 
 @Composable
 fun WelcomeScreen(
@@ -90,8 +92,13 @@ fun WelcomeScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "LightMode")
+@Preview(name = "DarkMode", showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun WelcomeScreenPreview() {
-    WelcomeScreen()
+fun WelcomeNightScreenPreview() {
+    Challenge1Theme {
+        Surface(){
+                WelcomeScreen()
+            }
+    }
 }
