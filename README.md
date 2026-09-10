@@ -43,6 +43,7 @@
   - [Kotlin Multiplatform](#kotlin-multiplatform)
   - [Challenges y simulacros](#challenges-y-simulacros)
 - [Proyectos de referencia (submódulos)](#proyectos-de-referencia-submódulos)
+  - [Colaboradores de cada submódulo](#colaboradores-de-cada-submódulo)
 - [Tecnologías](#tecnologías)
 - [Cursos](#cursos)
 
@@ -155,6 +156,57 @@ Repos externos usados como material de consulta durante la cursada (no son entre
 | [`RoomJetpackCompose`](https://github.com/AlexMamo/RoomJetpackCompose) | Tutorial externo | Ejemplo de Room + Compose. |
 | [`compose-recyclerview`](https://github.com/canopas/compose-recyclerview) | Librería externa | Librería que emula RecyclerView (drag & drop, swipe) sobre Compose. |
 | [`MisTutorialesYouTube`](https://github.com/MKiperszmid/MisTutorialesYouTube) | Tutorial externo | Ejercicios de un canal de YouTube usados como referencia. |
+
+### Colaboradores de cada submódulo
+
+<details>
+<summary><code>compose-samples</code></summary>
+<a href="https://github.com/android/compose-samples/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=android/compose-samples" alt="compose-samples contributors" />
+</a>
+</details>
+
+<details>
+<summary><code>nowinandroid</code></summary>
+<a href="https://github.com/android/nowinandroid/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=android/nowinandroid" alt="nowinandroid contributors" />
+</a>
+</details>
+
+<details>
+<summary><code>snippets</code></summary>
+<a href="https://github.com/android/snippets/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=android/snippets" alt="snippets contributors" />
+</a>
+</details>
+
+<details>
+<summary><code>make-it-so-android</code></summary>
+<a href="https://github.com/FirebaseExtended/make-it-so-android/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=FirebaseExtended/make-it-so-android" alt="make-it-so-android contributors" />
+</a>
+</details>
+
+<details>
+<summary><code>RoomJetpackCompose</code></summary>
+<a href="https://github.com/AlexMamo/RoomJetpackCompose/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AlexMamo/RoomJetpackCompose" alt="RoomJetpackCompose contributors" />
+</a>
+</details>
+
+<details>
+<summary><code>compose-recyclerview</code></summary>
+<a href="https://github.com/canopas/compose-recyclerview/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=canopas/compose-recyclerview" alt="compose-recyclerview contributors" />
+</a>
+</details>
+
+<details>
+<summary><code>MisTutorialesYouTube</code></summary>
+<a href="https://github.com/MKiperszmid/MisTutorialesYouTube/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=MKiperszmid/MisTutorialesYouTube" alt="MisTutorialesYouTube contributors" />
+</a>
+</details>
 
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
