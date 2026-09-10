@@ -11,7 +11,7 @@ class CharacterImpl : Characters {
     private val retrofit: Retrofit = Retrofit
         .Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("https://rickandmortyapi.com/api/")
+        .baseUrl("https://rickandmortyapi.com/")
         .build()
 
     private val api = retrofit.create(CharactersApi::class.java)

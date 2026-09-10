@@ -36,7 +36,7 @@ fun CharactersList(
     val characters = presenter.characters.value
 
     if(characters == null) {
-        repeat(3) {
+        repeat(1) {
             item{ LoadingCard() }
         }
     } else {
@@ -86,7 +86,7 @@ private fun CharacterCard(character: Character) = Card(
                 loading = { LoadingBox() },
                 error = { ImageError() },
                 model = character.imageUrl,
-                contentDescription = null
+                contentDescription = "aca va a carga una imagen"
             )
             Column {
                 Text(character.name)
