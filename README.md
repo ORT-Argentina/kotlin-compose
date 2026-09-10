@@ -16,7 +16,7 @@
   <h3 align="center">Kotlin Compose</h3>
 
   <p align="center">
-    Este repositorio esta destinado unicamente para subir proyectos de Kotlin Compose para Android. Para la Material Taller de Programación 3.
+    Repositorio de la materia <strong>Taller de Programación 3</strong> (ORT Argentina): proyectos Android en Kotlin y Jetpack Compose, organizados por tema a medida que se avanza en la cursada.
     <br />
     <a href="https://github.com/ORT-Argentina/kotlin-compose"><strong>Ver los ejemplos »</strong></a>
     <br />
@@ -29,6 +29,135 @@
   </p>
 </div>
 
+## Índice
+
+- [Cómo clonar este repositorio](#cómo-clonar-este-repositorio)
+- [Temas y proyectos](#temas-y-proyectos)
+  - [Fundamentos de Compose](#fundamentos-de-compose)
+  - [Vistas tradicionales (XML)](#vistas-tradicionales-xml)
+  - [Listas y estado](#listas-y-estado)
+  - [Consumo de APIs REST](#consumo-de-apis-rest)
+  - [Persistencia local (Room)](#persistencia-local-room)
+  - [Arquitectura (MVVM, DI, Clean Architecture)](#arquitectura-mvvm-di-clean-architecture)
+  - [Firebase](#firebase)
+  - [Kotlin Multiplatform](#kotlin-multiplatform)
+  - [Challenges y simulacros](#challenges-y-simulacros)
+- [Proyectos de referencia (submódulos)](#proyectos-de-referencia-submódulos)
+- [Tecnologías](#tecnologías)
+- [Cursos](#cursos)
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
+## Cómo clonar este repositorio
+
+Este repo usa **submódulos de git** para los proyectos de referencia externos (samples oficiales de Android, Firebase, etc.), así que hay que clonarlo trayéndolos también:
+
+```bash
+git clone --recurse-submodules git@github.com:ORT-Argentina/kotlin-compose.git
+```
+
+Si ya lo clonaste sin ese flag:
+
+```bash
+git submodule update --init --recursive
+```
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
+## Temas y proyectos
+
+### Fundamentos de Compose
+
+Primeros pasos con Composables, estado y Material3.
+
+| Proyecto | Descripción |
+|---|---|
+| [`HolaMundoPersona`](HolaMundoPersona) | Ejercicio introductorio "Hola Mundo" en Compose, con un modelo simple (`Persona`) y un composable raíz básico. |
+| [`LoginRegisterCompose`](LoginRegisterCompose) | Variante del ejercicio anterior, con pantallas de Welcome/Login/Register armadas con componentes propios. |
+| [`Challenges/HolaMundo`](Challenges/HolaMundo) | Ejercicio de práctica con pantallas Welcome/Login/Register, Navigation Compose y Material3. |
+
+### Vistas tradicionales (XML)
+
+| Proyecto | Descripción |
+|---|---|
+| [`AppXML`](AppXML) | Proyecto con Views/XML clásicas (`AppCompatActivity`, Fragments, layouts XML) y RecyclerView, sobre el template "List/Detail" de Android Studio. |
+
+### Listas y estado
+
+Manejo de listas dinámicas y estado de UI, tanto con `LazyColumn` como emulando patrones de RecyclerView.
+
+| Proyecto | Descripción |
+|---|---|
+| [`FirstAndroidProject`](FirstAndroidProject) | Primer proyecto con una lista (`LazyColumn`) de mensajes/imágenes; incluye Firebase Auth como dependencia. |
+| [`ZenListChecklist`](ZenListChecklist) | App de checklist/lista de tareas ("ZenList") con pantalla Home en `LazyColumn` sobre un modelo `ChecklistGroup`. |
+| [`RecyclerViewJCYTT`](RecyclerViewJCYTT) | A pesar del nombre, está implementado 100% en Compose: usa `LazyColumn` para simular una lista tipo RecyclerView con ítems expandibles/animados (`animateDpAsState`). |
+
+### Consumo de APIs REST
+
+Networking con Retrofit, serialización y carga de imágenes.
+
+| Proyecto | Descripción |
+|---|---|
+| [`MarsPhotos`](MarsPhotos) | Codelab oficial de Google: consume una REST API de fotos de Marte con Retrofit + kotlinx.serialization, con arquitectura Repository + ViewModel y carga de imágenes con Coil. |
+| [`RickAndMorty2`](RickAndMorty2) | Cliente de la API pública de Rick and Morty con arquitectura por capas (use case / repository / presentation), paginación, Retrofit + Gson y Coil. |
+
+### Persistencia local (Room)
+
+| Proyecto | Descripción |
+|---|---|
+| [`Mytask`](Mytask) | App de notas/tareas con Room (DAO, Database Provider) y pantallas de lista/alta en Compose vía ViewModel. |
+| [`ChatHiltRoom`](ChatHiltRoom) | App de login/registro y chat con MVVM + Hilt, Room para persistencia y Navigation Compose. |
+| [`AuthCameraRoom`](AuthCameraRoom) | Flujo de autenticación con captura de imágenes: Room, Retrofit, CameraX y Material3 Adaptive. |
+
+### Arquitectura (MVVM, DI, Clean Architecture)
+
+| Proyecto | Descripción |
+|---|---|
+| [`Quote`](Quote) | App de frases con arquitectura por capas (auth, data, di, network), Hilt para inyección de dependencias, Retrofit + Gson, Room para favoritos y Firebase Auth con Google Sign-In. |
+| [`BootShop`](BootShop) | App de e-commerce (tienda de zapatillas) con MVVM, navegación por Drawer/BottomBar, DataStore para preferencias y Coil. |
+
+*(`ChatHiltRoom` y `RickAndMorty2` también aplican estos patrones — ver secciones de Persistencia y Networking.)*
+
+### Firebase
+
+| Proyecto | Descripción |
+|---|---|
+| [`Firebase`](Firebase) | Demo integral de Firebase en Compose: Firestore, Realtime Database (notas y chat), Authentication (incluye login por teléfono) y Remote Config. |
+| [`MyTodoListORT`](MyTodoListORT) | A pesar del nombre, es una demo de IA generativa (sample "Baking" de Gemini) que usa Firebase AI para generar texto/recetas a partir de imágenes, con patrón `UiState` sellado. |
+
+### Kotlin Multiplatform
+
+| Proyecto | Descripción |
+|---|---|
+| [`KotlinMultiplatform`](KotlinMultiplatform) | Plantilla oficial de Kotlin Multiplatform / Compose Multiplatform (Android + iOS), con módulos `composeApp`, `shared` e `iosApp`. |
+| [`MyApplicationMultiplaform`](MyApplicationMultiplaform) | Plantilla clásica de Kotlin Multiplatform Mobile (KMM) con módulos `shared`, `androidApp`, `iosApp` y un `Greeting`/`Platform` de ejemplo (`expect`/`actual`). |
+
+### Challenges y simulacros
+
+| Proyecto | Descripción |
+|---|---|
+| [`Challenge1`](Challenge1) | Challenge de login/registro (Welcome/Login/Register) con Navigation Compose y componentes reutilizables. |
+| [`Challenges/First`](Challenges/First) | Segundo ejercicio de práctica, mismo formato que `Challenges/HolaMundo`. |
+| [`simulacro-2025`](simulacro-2025) | Simulacro de examen: app de pedidos de café con pantallas Welcome/Home y un modelo `Coffee`. |
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
+## Proyectos de referencia (submódulos)
+
+Repos externos usados como material de consulta durante la cursada (no son entregas propias):
+
+| Submódulo | Origen | Uso |
+|---|---|---|
+| [`compose-samples`](https://github.com/android/compose-samples) | Google/Android | Colección oficial de samples de Jetpack Compose (Jetnews, Jetchat, Jetsnack, etc). |
+| [`nowinandroid`](https://github.com/android/nowinandroid) | Google/Android | App de referencia "Now in Android" — arquitectura moderna, modularización y buenas prácticas. |
+| [`snippets`](https://github.com/android/snippets) | Google/Android | Fragmentos de código oficiales citados en la documentación de Android. |
+| [`make-it-so-android`](https://github.com/FirebaseExtended/make-it-so-android) | Firebase | Sample de Firebase (Auth, Crashlytics, Firestore) en dos versiones (`v1` clásica y `v2` con arquitectura actual). |
+| [`RoomJetpackCompose`](https://github.com/AlexMamo/RoomJetpackCompose) | Tutorial externo | Ejemplo de Room + Compose. |
+| [`compose-recyclerview`](https://github.com/canopas/compose-recyclerview) | Librería externa | Librería que emula RecyclerView (drag & drop, swipe) sobre Compose. |
+| [`MisTutorialesYouTube`](https://github.com/MKiperszmid/MisTutorialesYouTube) | Tutorial externo | Ejercicios de un canal de YouTube usados como referencia. |
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
 ## Principales contribuyentes
 
 <a href="https://github.com/ORT-Argentina/kotlin-compose/graphs/contributors">
@@ -38,7 +167,7 @@
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 
-## Tecnologias
+## Tecnologías
 
 * [![Android][Android-logo]][Android-url]
 * [![Kotlin][kotlinlang.org]][Kotlin-url]
