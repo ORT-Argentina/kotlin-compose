@@ -16,3 +16,5 @@ local.properties
 .cursor
 .superpowers
 google-services.json
+Firebase/.idea/appInsightsSettings.xml
+MyTodoListORT/.idea/appInsightsSettings.xml
