@@ -1,12 +1,12 @@
 package ar.edu.ort.frases.helpers
 
-import ar.edu.ort.frases.model.Dog
 import ar.edu.ort.frases.model.Quote
 import ar.edu.ort.frases.shared.IServiceQuotes
 import ar.edu.ort.frases.shared.QuotesApi
 import javax.inject.Inject
+import javax.inject.Singleton
 
-
+@Singleton
 class QuoteRetrofit
     @Inject
     constructor(private val service:QuotesApi) : IServiceQuotes {
@@ -25,22 +25,6 @@ class QuoteRetrofit
             }
             result
         } else {
-            emptyList()
-        }
-    }
-
-    override suspend fun getDogs() : List<Dog>?{
-        val responseDogs = service.getDogByName()
-
-        return if(responseDogs.isSuccessful){
-            val result = responseDogs.body()?.map {
-                Dog(
-                    image_link = it.imageLink,
-                    name = it.name
-                )
-            }
-            result
-        }else{
             emptyList()
         }
     }

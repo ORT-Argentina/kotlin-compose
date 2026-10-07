@@ -69,7 +69,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.common)
 
-
     //Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
