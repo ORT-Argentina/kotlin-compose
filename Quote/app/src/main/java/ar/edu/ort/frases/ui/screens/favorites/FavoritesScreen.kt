@@ -24,8 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.ort.frases.data.local.FavoriteQuoteEntity
+import ar.edu.ort.frases.ui.theme.FrasesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -133,5 +135,30 @@ private fun FavoriteQuoteCard(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FavoritesScreenPreview() {
+    FrasesTheme(dynamicColor = false) {
+        FavoritesScreen(
+            favorites = listOf(
+                FavoriteQuoteEntity(
+                    id = "1",
+                    text = "La simplicidad es la máxima sofisticación.",
+                    author = "Leonardo da Vinci",
+                    category = "Inspiración"
+                ),
+                FavoriteQuoteEntity(
+                    id = "2",
+                    text = "Hazlo o no lo hagas, pero no lo intentes.",
+                    author = "Yoda",
+                    category = "Motivación"
+                )
+            ),
+            onBackClick = {},
+            onDeleteClick = {}
+        )
     }
 }

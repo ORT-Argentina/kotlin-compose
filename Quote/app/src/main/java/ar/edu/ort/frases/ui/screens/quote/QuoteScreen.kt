@@ -31,7 +31,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ar.edu.ort.frases.model.Quote
+import ar.edu.ort.frases.ui.theme.FrasesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -166,5 +169,25 @@ private fun QuoteError(
         Button(onClick = onRetryClick) {
             Text("Reintentar")
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun QuoteScreenPreview() {
+    FrasesTheme(dynamicColor = false) {
+        QuoteScreen(
+            uiState = QuoteUiState(
+                quote = Quote(
+                    quote = "La simplicidad es la máxima sofisticación. ",
+                    author = "Leonardo da Vinci",
+                    category = "Inspiración"
+                )
+            ),
+            onReloadClick = {},
+            onFavoriteClick = {},
+            onFavoritesClick = {},
+            onLogoutClick = {}
+        )
     }
 }

@@ -28,8 +28,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.ort.frases.auth.AuthUiState
+import ar.edu.ort.frases.ui.theme.FrasesTheme
 
 @Composable
 fun LoginScreen(
@@ -128,5 +130,20 @@ fun LoginScreen(
                 Text("Crear cuenta")
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LoginScreenPreview() {
+    FrasesTheme(dynamicColor = false) {
+        LoginScreen(
+            uiState = AuthUiState.Idle,
+            onLoginClick = { _, _ -> },
+            onGoogleSignInClick = {},
+            onRegisterClick = {},
+            onForgotPasswordClick = {},
+            onClearMessage = {}
+        )
     }
 }

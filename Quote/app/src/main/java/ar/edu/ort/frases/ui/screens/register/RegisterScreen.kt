@@ -27,8 +27,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.ort.frases.auth.AuthUiState
+import ar.edu.ort.frases.ui.theme.FrasesTheme
 
 @Composable
 fun RegisterScreen(
@@ -110,5 +112,18 @@ fun RegisterScreen(
                 Text("Ya tengo cuenta")
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RegisterScreenPreview() {
+    FrasesTheme(dynamicColor = false) {
+        RegisterScreen(
+            uiState = AuthUiState.Idle,
+            onRegisterClick = { _, _, _ -> },
+            onBackToLoginClick = {},
+            onClearMessage = {}
+        )
     }
 }

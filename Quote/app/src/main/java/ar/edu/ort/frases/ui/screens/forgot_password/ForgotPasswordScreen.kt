@@ -26,8 +26,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.ort.frases.auth.AuthUiState
+import ar.edu.ort.frases.ui.theme.FrasesTheme
 
 @Composable
 fun ForgotPasswordScreen(
@@ -98,5 +100,18 @@ fun ForgotPasswordScreen(
                 Text("Volver al login")
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ForgotPasswordScreenPreview() {
+    FrasesTheme(dynamicColor = false) {
+        ForgotPasswordScreen(
+            uiState = AuthUiState.Idle,
+            onSendResetClick = {},
+            onBackToLoginClick = {},
+            onClearMessage = {}
+        )
     }
 }
